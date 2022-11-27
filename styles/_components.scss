@@ -1,0 +1,19 @@
+#game {
+	width: 640px;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+
+	& .background {
+		background-color: black;
+		width: 20px;
+		height: 20px;
+	}
+
+	& .snake-body {
+		display: block;
+		background-color: red;
+		width: 20px;
+		height: 20px;
+	}
+}
