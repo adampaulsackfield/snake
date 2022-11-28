@@ -2,16 +2,17 @@ console.log('Connected!');
 const game = document.getElementById('game');
 
 class Game {
-	constructor(gridSize) {
-		this.gridSize = gridSize;
+	constructor() {
+		this.gridSize = 32;
 		this.score = 0;
 		this.highScore = 0;
-
 		this.snake = [
 			[8, 8],
 			[8, 7],
 			[8, 6],
 		];
+		this.currentDirection = '';
+		this.speed = 3;
 	}
 
 	buildGrid() {
@@ -32,34 +33,92 @@ class Game {
 		});
 	}
 
-	moveSnake(direction) {
-		let head, tail, headSquare, tailSquare;
+	directSnake(direction) {
+		// TODO - Bug where if you click the current direction again it begins to speed up.
 
-		if (direction === 'right') {
-			head = [this.snake[0][0], this.snake[0][1] + 1];
-			tail = this.snake.pop();
-			this.snake.unshift(head);
+		if (direction === 'right' && this.currentDirection !== 'left') {
+			const row = this.snake[0][0];
+			const col = this.snake[0][1] + 1;
 
-			headSquare = document.getElementById(`${this.snake[0].join(',')}`);
-			tailSquare = document.getElementById(tail.join(','));
-
-			if (headSquare === null) {
-				alert('Game Over');
-				return;
-			}
-
-			headSquare.classList.add('snake-body');
-			tailSquare.classList.remove('snake-body');
+			this.makeMove(row, col, 'right');
 		}
+
+		if (direction === 'left' && this.currentDirection !== 'right') {
+			const row = this.snake[0][0];
+			const col = this.snake[0][1] - 1;
+
+			this.makeMove(row, col, 'left');
+		}
+
+		if (direction === 'up' && this.currentDirection !== 'down') {
+			const row = this.snake[0][0] - 1;
+			const col = this.snake[0][1];
+
+			this.makeMove(row, col, 'up');
+		}
+
+		if (direction === 'down' && this.currentDirection !== 'up') {
+			const row = this.snake[0][0] + 1;
+			const col = this.snake[0][1];
+
+			this.makeMove(row, col, 'down');
+		}
+
+		return;
+	}
+
+	makeMove(row, col, direction) {
+		let head = [row, col];
+		let tail = this.snake.pop();
+		let headSquare, tailSquare;
+		this.snake.unshift(head);
+
+		headSquare = document.getElementById(`${this.snake[0].join(',')}`);
+		tailSquare = document.getElementById(tail.join(','));
+
+		if (headSquare === null) {
+			const info = document.getElementById('info');
+			info.innerHTML = 'You Lose';
+			return;
+		}
+
+		headSquare.classList.add('snake-body');
+		tailSquare.classList.remove('snake-body');
+
+		this.currentDirection = direction;
+
+		setTimeout(() => {
+			if (this.currentDirection !== direction) return;
+			else this.directSnake(this.currentDirection);
+		}, 1200 / this.speed);
 	}
 }
 
-const newGame = new Game(32);
+const newGame = new Game();
 
 newGame.buildGrid();
 
 newGame.addSnake();
 
-const rightBtn = document.getElementById('right');
+window.onkeydown = (e) => {
+	let left = 37;
+	let up = 38;
+	let right = 39;
+	let down = 40;
 
-rightBtn.addEventListener('click', () => newGame.moveSnake('right'));
+	if (e.keyCode === left) {
+		newGame.directSnake('left');
+	}
+
+	if (e.keyCode === up) {
+		newGame.directSnake('up');
+	}
+
+	if (e.keyCode === right) {
+		newGame.directSnake('right');
+	}
+
+	if (e.keyCode === down) {
+		newGame.directSnake('down');
+	}
+};
