@@ -1,6 +1,7 @@
 console.log('Connected!');
 const game = document.getElementById('game');
 const scoreBoard = document.getElementById('scoreBoard');
+const score = document.getElementById('score');
 
 class Game {
 	constructor() {
@@ -27,6 +28,8 @@ class Game {
 				game.appendChild(square);
 			}
 		}
+
+		score.innerHTML = 0;
 	}
 
 	addSnake() {
@@ -78,14 +81,13 @@ class Game {
 		let headSquare, tailSquare, foodSquare;
 		this.snake.unshift(head);
 
-		if (headSquare === null) {
-			const info = document.getElementById('info');
-			info.innerHTML = 'You Lose';
-			return;
-		}
-
 		headSquare = document.getElementById(`${this.snake[0].join(',')}`);
 		foodSquare = document.getElementById(`${this.food.join(',')}`);
+
+		if (headSquare === null) {
+			console.log('you Lose');
+			return;
+		}
 
 		headSquare.classList.add('snake-body');
 
@@ -123,6 +125,7 @@ class Game {
 
 	isFood(head) {
 		if (this.food.join(',') === head.join(',')) {
+			score.innerHTML = ++this.score;
 			return true;
 		} else {
 			return false;

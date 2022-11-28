@@ -4,15 +4,24 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>snake</title>
+		<title>Snake</title>
 
 		<link rel="stylesheet" href="./styles/main.css" />
 	</head>
-	<body>
-		<h1 id="info" style="min-height: 100px"></h1>
+	<body class="container">
+		<section class="display">
+			<h2 class="display__heading">
+				Score: <span id="score" class="display__heading--score">0</span>
+			</h2>
+			<h2 class="display__heading">
+				Time: <span id="time" class="display__heading--time">00:00</span>
+			</h2>
+		</section>
 
-		<section id="scoreBoard"></section>
-		<section id="game"></section>
+		<main class="main">
+			<section id="scoreBoard" class="main__scoreBoard"></section>
+			<section id="game" class="main__game"></section>
+		</main>
 
 		<script src="./scripts/main.js"></script>
 	</body>
