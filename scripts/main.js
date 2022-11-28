@@ -1,5 +1,6 @@
 console.log('Connected!');
 const game = document.getElementById('game');
+const scoreBoard = document.getElementById('scoreBoard');
 
 class Game {
 	constructor() {
@@ -31,6 +32,8 @@ class Game {
 		this.snake.forEach((segment) => {
 			document.getElementById(segment).classList.add('snake-body');
 		});
+
+		this.getScores();
 	}
 
 	directSnake(direction) {
@@ -91,6 +94,26 @@ class Game {
 			if (this.currentDirection !== direction) return;
 			else this.directSnake(this.currentDirection);
 		}, 1200 / this.speed);
+	}
+
+	getScores() {
+		return fetch('http://localhost:5550/api/scores')
+			.then((res) => {
+				return res.json();
+			})
+			.then((data) => {
+				if (data.scores.length > 0) {
+					data.scores.forEach((score) => {
+						let p = document.createElement('div');
+						p.innerHTML = `Name: ${score.name} Score: ${score.score}`;
+						scoreBoard.appendChild(p);
+					});
+				} else {
+					let p = document.createElement('div');
+					p.innerHTML = `No High Scores`;
+					scoreBoard.appendChild(p);
+				}
+			});
 	}
 }
 
