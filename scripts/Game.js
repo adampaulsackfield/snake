@@ -5,7 +5,7 @@ const score = document.getElementById('score');
 export class Game {
 	constructor() {
 		this.gridSize = 32;
-		this.score = 0;
+		this.score = 12;
 		this.highScore = 0;
 	}
 
