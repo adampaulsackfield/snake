@@ -15,18 +15,18 @@ window.onkeydown = (e) => {
 	let down = 40;
 
 	if (e.keyCode === left) {
-		newSnake.directSnake('left');
+		newSnake.setDirection('left');
 	}
 
 	if (e.keyCode === up) {
-		newSnake.directSnake('up');
+		newSnake.setDirection('up');
 	}
 
 	if (e.keyCode === right) {
-		newSnake.directSnake('right');
+		newSnake.setDirection('right');
 	}
 
 	if (e.keyCode === down) {
-		newSnake.directSnake('down');
+		newSnake.setDirection('down');
 	}
 };

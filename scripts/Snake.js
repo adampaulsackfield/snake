@@ -12,6 +12,12 @@ export class Snake extends Game {
 		this.currentDirection = '';
 		this.speed = 3;
 		this.food = [];
+		this.moving = false;
+		this.direction = null;
+		this.pendingChanges = {
+			row: '',
+			col: '',
+		};
 	}
 
 	addSnake() {
@@ -20,73 +26,6 @@ export class Snake extends Game {
 		});
 
 		this.addFood();
-	}
-
-	directSnake(direction) {
-		// TODO - Bug where if you click the current direction again it begins to speed up.
-		const isFood = this.isFood(this.snake[0]);
-
-		if (direction === 'right' && this.currentDirection !== 'left') {
-			const row = this.snake[0][0];
-			const col = this.snake[0][1] + 1;
-
-			this.makeMove(row, col, 'right', isFood);
-		}
-
-		if (direction === 'left' && this.currentDirection !== 'right') {
-			const row = this.snake[0][0];
-			const col = this.snake[0][1] - 1;
-
-			this.makeMove(row, col, 'left', isFood);
-		}
-
-		if (direction === 'up' && this.currentDirection !== 'down') {
-			const row = this.snake[0][0] - 1;
-			const col = this.snake[0][1];
-
-			this.makeMove(row, col, 'up', isFood);
-		}
-
-		if (direction === 'down' && this.currentDirection !== 'up') {
-			const row = this.snake[0][0] + 1;
-			const col = this.snake[0][1];
-
-			this.makeMove(row, col, 'down', isFood);
-		}
-
-		return;
-	}
-
-	makeMove(row, col, direction, eating) {
-		let head = [row, col];
-		let headSquare, tailSquare, foodSquare;
-		this.snake.unshift(head);
-
-		headSquare = document.getElementById(`${this.snake[0].join(',')}`);
-		foodSquare = document.getElementById(`${this.food.join(',')}`);
-
-		if (headSquare === null) {
-			console.log('you Lose');
-			return;
-		}
-
-		headSquare.classList.add('snake-body');
-
-		if (eating) {
-			foodSquare.classList.remove('food');
-			this.addFood();
-		} else {
-			let tail = this.snake.pop();
-			tailSquare = document.getElementById(tail.join(','));
-			tailSquare.classList.remove('snake-body');
-		}
-
-		this.currentDirection = direction;
-
-		setTimeout(() => {
-			if (this.currentDirection !== direction) return;
-			else this.directSnake(this.currentDirection);
-		}, 1200 / this.speed);
 	}
 
 	addFood() {
@@ -104,12 +43,77 @@ export class Snake extends Game {
 		});
 	}
 
-	isFood(head) {
-		if (this.food.join(',') === head.join(',')) {
+	isFood() {
+		if (this.food.join(',') === this.snake[0].join(',')) {
 			score.innerHTML = ++this.score;
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	setDirection(direction) {
+		this.direction = direction;
+
+		if (!this.moving) {
+			this.moving = true;
+			this.directSnake();
+		}
+	}
+
+	directSnake() {
+		let row, col;
+		if (this.direction === 'right') {
+			row = this.snake[0][0];
+			col = this.snake[0][1] + 1;
+		}
+
+		if (this.direction === 'left') {
+			row = this.snake[0][0];
+			col = this.snake[0][1] - 1;
+		}
+
+		if (this.direction === 'up') {
+			row = this.snake[0][0] - 1;
+			col = this.snake[0][1];
+		}
+
+		if (this.direction === 'down') {
+			row = this.snake[0][0] + 1;
+			col = this.snake[0][1];
+		}
+
+		this.moveSnake(row, col, this.isFood());
+	}
+
+	moveSnake(row, col, eating) {
+		if (eating) {
+			let foodSquare = document.getElementById(`${this.food.join(',')}`);
+			foodSquare.classList.remove('food');
+			this.addFood();
+		}
+		let head = [row, col];
+		let headSquare, tailSquare, foodSquare;
+		this.snake.unshift(head);
+
+		headSquare = document.getElementById(`${this.snake[0].join(',')}`);
+		foodSquare = document.getElementById(`${this.food.join(',')}`);
+
+		if (headSquare === null) {
+			console.log('you Lose');
+			return;
+		}
+
+		headSquare.classList.add('snake-body');
+
+		if (!eating) {
+			let tail = this.snake.pop();
+			tailSquare = document.getElementById(tail.join(','));
+			tailSquare.classList.remove('snake-body');
+		}
+
+		setTimeout(() => {
+			this.directSnake();
+		}, 1200 / this.speed);
 	}
 }
