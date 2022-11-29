@@ -1,5 +1,7 @@
 import { Game } from './Game.js';
 
+const nomSound = new Audio('./nom.wav');
+
 export class Snake extends Game {
 	constructor(score) {
 		super(score);
@@ -18,6 +20,7 @@ export class Snake extends Game {
 			row: '',
 			col: '',
 		};
+		this.dead = false;
 	}
 
 	addSnake() {
@@ -47,6 +50,7 @@ export class Snake extends Game {
 	isFood() {
 		if (this.food.join(',') === this.snake[0].join(',')) {
 			score.innerHTML = ++this.score;
+			// nomSound.play();
 			return true;
 		} else {
 			return false;
@@ -60,6 +64,19 @@ export class Snake extends Game {
 			this.moving = true;
 			this.directSnake();
 		}
+	}
+
+	isSnake(coordsArr) {
+		for (let i = 0; i < this.snake.length; i++) {
+			if (coordsArr.join(',') === this.snake[i].join(',')) {
+				this.gameOver();
+				break;
+			}
+		}
+	}
+
+	gameOver() {
+		this.dead = true;
 	}
 
 	directSnake() {
@@ -84,10 +101,13 @@ export class Snake extends Game {
 			col = this.snake[0][1];
 		}
 
-		this.moveSnake(row, col, this.isFood());
+		if (this.isSnake([row, col])) return this.gameOver();
+		else this.moveSnake(row, col, this.isFood());
 	}
 
 	moveSnake(row, col, eating) {
+		if (this.dead) return;
+
 		if (eating) {
 			let foodSquare = document.getElementById(`${this.food.join(',')}`);
 			foodSquare.classList.remove('food');
@@ -115,6 +135,6 @@ export class Snake extends Game {
 
 		setTimeout(() => {
 			this.directSnake();
-		}, 600 / this.speed);
+		}, 400 / this.speed);
 	}
 }

@@ -20,8 +20,22 @@
 
 		<main class="main">
 			<section id="scoreBoard" class="main__scoreBoard"></section>
+			<section id="nameArea" class="nameArea">
+				<input
+					id="name"
+					class="nameArea__input"
+					type="text"
+					placeholder="Enter Your Name..."
+				/>
+				<button id="nameBtn" class="nameArea__button">Submit</button>
+			</section>
 			<section id="game" class="main__game"></section>
 		</main>
+
+		<section class="controls">
+			<button id="newGame" class="controls__button">New Game</button>
+			<button id="pause" class="controls__button">Pause</button>
+		</section>
 
 		<script src="./scripts/main.js" type="module"></script>
 	</body>
