@@ -33,14 +33,15 @@ export class Snake extends Game {
 			Math.random() * 17
 		)}`;
 
-		this.snake.forEach((segment) => {
-			if (segment.join(',') === randomLocation) {
+		for (let index = 0; index < this.snake.length; index++) {
+			if (this.snake[index].join(',') === randomLocation) {
 				this.addFood();
 			} else {
 				this.food = randomLocation.split(',');
 				document.getElementById(randomLocation).classList.add('food');
+				break;
 			}
-		});
+		}
 	}
 
 	isFood() {
@@ -114,6 +115,6 @@ export class Snake extends Game {
 
 		setTimeout(() => {
 			this.directSnake();
-		}, 1200 / this.speed);
+		}, 600 / this.speed);
 	}
 }
