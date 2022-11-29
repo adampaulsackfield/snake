@@ -3,10 +3,11 @@ const scoreBoard = document.getElementById('scoreBoard');
 const score = document.getElementById('score');
 
 export class Game {
-	constructor() {
+	constructor(name) {
 		this.gridSize = 32;
-		this.score = 12;
+		this.score = 0;
 		this.highScore = 0;
+		this.name = name;
 	}
 
 	buildGrid() {
@@ -20,8 +21,8 @@ export class Game {
 				game.appendChild(square);
 			}
 		}
-
-		score.innerHTML = 0;
+		console.log(this.name);
+		score.innerHTML = this.name;
 
 		// this.getScores();
 	}
@@ -44,5 +45,9 @@ export class Game {
 					scoreBoard.appendChild(p);
 				}
 			});
+	}
+
+	postScore() {
+		// TODO
 	}
 }

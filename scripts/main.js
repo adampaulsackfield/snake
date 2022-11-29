@@ -1,12 +1,21 @@
 import { Game } from './Game.js';
 import { Snake } from './Snake.js';
 
-const newGame = new Game();
-const newSnake = new Snake();
+let newGame, newSnake;
 
-newGame.buildGrid();
+const nameArea = document.getElementById('nameArea');
+const name = document.getElementById('name');
+const nameBtn = document.getElementById('nameBtn');
 
-newSnake.addSnake();
+nameBtn.addEventListener('click', () => {
+	newGame = new Game(name.value);
+	newSnake = new Snake();
+
+	nameArea.classList.add('none');
+
+	newGame.buildGrid();
+	newSnake.addSnake();
+});
 
 window.onkeydown = (e) => {
 	let left = 37;

@@ -8,6 +8,10 @@ body {
   color: white;
 }
 
+.none {
+  display: none;
+}
+
 .display {
   display: flex;
   align-items: center;
