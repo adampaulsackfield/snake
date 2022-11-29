@@ -1,16 +1,42 @@
+@use './variables' as *;
+
+.header {
+	font-family: $font-primary;
+	font-size: 2.4rem;
+	color: $color-green;
+	text-align: center;
+	padding-top: 1.2rem;
+	letter-spacing: 10px;
+}
+
 .display {
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
+	font-family: $font-primary;
+	font-size: 0.6rem;
 
-	height: 100px;
+	height: 60px;
+
+	&__name {
+		&--user {
+			color: $color-green;
+		}
+	}
+
+	&__heading {
+		&--time,
+		&--score {
+			color: $color-green;
+		}
+	}
 }
 
 .main {
 	display: flex;
 
 	&__game {
-		width: 640px;
+		width: 600px;
 		margin: 0 auto;
 		display: flex;
 		flex-wrap: wrap;
@@ -36,5 +62,92 @@
 			height: 20px;
 			border-radius: 50%;
 		}
+	}
+}
+
+.nameArea {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #232323;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	&__heading {
+		font-family: $font-primary;
+		font-size: 4rem;
+		color: $color-green;
+		letter-spacing: 12px;
+		margin-bottom: 200px;
+	}
+
+	&__input {
+		padding: 0.4rem 1rem;
+		border: none;
+		border-bottom: solid 2px $color-green;
+		background-color: transparent;
+		font-family: $font-primary;
+
+		color: $color-green;
+		letter-spacing: 4px;
+
+		&:focus {
+			outline: none;
+		}
+
+		&--error {
+			border-bottom-color: $color-red;
+		}
+	}
+
+	&__error {
+		font-family: $font-primary;
+		color: $color-red;
+		text-align: center;
+		font-size: 0.6rem;
+		margin-top: 22px;
+		margin-bottom: 2px;
+
+		&--hide {
+			display: none;
+		}
+	}
+
+	&__button {
+		font-family: $font-primary;
+		background-color: transparent;
+		letter-spacing: 12px;
+		border: none;
+		padding: 1rem;
+		border-radius: 25px;
+		color: $color-green;
+		border: solid 1px $color-green;
+		cursor: pointer;
+		transition: background-color ease 800ms;
+		margin-top: 20px;
+
+		&:hover {
+			background-color: rgba($color-green, 0.6);
+			color: white;
+		}
+	}
+}
+
+.controls {
+	display: flex;
+	justify-content: space-evenly;
+	padding: 1rem 0;
+
+	&__button {
+		padding: 0.8rem 2rem;
+		background-color: transparent;
+		border: solid 1px $color-green;
+		border-radius: 20px;
+		color: white;
 	}
 }

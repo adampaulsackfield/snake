@@ -8,5 +8,10 @@ body {
 // }
 
 .none {
-	display: none;
+	display: none !important;
+}
+
+.flexCol {
+	display: flex;
+	flex-direction: column;
 }

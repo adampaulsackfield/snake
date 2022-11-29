@@ -1,10 +1,11 @@
 const game = document.getElementById('game');
 const scoreBoard = document.getElementById('scoreBoard');
 const score = document.getElementById('score');
+const userName = document.getElementById('userName');
 
 export class Game {
 	constructor(name) {
-		this.gridSize = 32;
+		this.gridSize = 30;
 		this.score = 0;
 		this.highScore = 0;
 		this.name = name;
@@ -21,8 +22,7 @@ export class Game {
 				game.appendChild(square);
 			}
 		}
-		console.log(this.name);
-		score.innerHTML = this.name;
+		userName.innerHTML = this.name;
 
 		// this.getScores();
 	}
@@ -51,3 +51,6 @@ export class Game {
 		// TODO
 	}
 }
+
+// TODO - Snake can still go back the opposite direction
+// TODO - Food can spawn under the snake's body
