@@ -9,28 +9,43 @@
 		<link rel="stylesheet" href="./styles/main.css" />
 	</head>
 	<body class="container">
+		<h1 class="header">Snake</h1>
+
 		<section class="display">
+			<h2 class="display__name">
+				Name: <span id="userName" class="display__name--user"></span>
+			</h2>
+
 			<h2 class="display__heading">
 				Score: <span id="score" class="display__heading--score">0</span>
 			</h2>
-			<h2 class="display__heading">
+
+			<h2 id="displayName" class="display__heading">
 				Time: <span id="time" class="display__heading--time">00:00</span>
 			</h2>
 		</section>
 
 		<main class="main">
 			<section id="scoreBoard" class="main__scoreBoard"></section>
-			<section id="nameArea" class="nameArea">
+
+			<section id="game" class="main__game"></section>
+		</main>
+
+		<section id="nameArea" class="nameArea">
+			<h1 class="nameArea__heading">Snake</h1>
+			<div class="flexCol">
 				<input
 					id="name"
 					class="nameArea__input"
 					type="text"
 					placeholder="Enter Your Name..."
 				/>
-				<button id="nameBtn" class="nameArea__button">Submit</button>
-			</section>
-			<section id="game" class="main__game"></section>
-		</main>
+				<p id="error" class="nameArea__error">
+					Name must be 9 characters or less 🤷‍♂️
+				</p>
+				<button id="nameBtn" class="nameArea__button">Ready</button>
+			</div>
+		</section>
 
 		<section class="controls">
 			<button id="newGame" class="controls__button">New Game</button>

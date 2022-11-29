@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -9,21 +10,43 @@ body {
 }
 
 .none {
-  display: none;
+  display: none !important;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  font-family: "Press Start 2P", cursive;
+  font-size: 2.4rem;
+  color: #6ded8a;
+  text-align: center;
+  padding-top: 1.2rem;
+  letter-spacing: 10px;
 }
 
 .display {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  height: 100px;
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.6rem;
+  height: 60px;
+}
+.display__name--user {
+  color: #6ded8a;
+}
+.display__heading--time, .display__heading--score {
+  color: #6ded8a;
 }
 
 .main {
   display: flex;
 }
 .main__game {
-  width: 640px;
+  width: 600px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -45,4 +68,80 @@ body {
   width: 20px;
   height: 20px;
   border-radius: 50%;
+}
+
+.nameArea {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #232323;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.nameArea__heading {
+  font-family: "Press Start 2P", cursive;
+  font-size: 4rem;
+  color: #6ded8a;
+  letter-spacing: 12px;
+  margin-bottom: 200px;
+}
+.nameArea__input {
+  padding: 0.4rem 1rem;
+  border: none;
+  border-bottom: solid 2px #6ded8a;
+  background-color: transparent;
+  font-family: "Press Start 2P", cursive;
+  color: #6ded8a;
+  letter-spacing: 4px;
+}
+.nameArea__input:focus {
+  outline: none;
+}
+.nameArea__input--error {
+  border-bottom-color: #ed3833;
+}
+.nameArea__error {
+  font-family: "Press Start 2P", cursive;
+  color: #ed3833;
+  text-align: center;
+  font-size: 0.6rem;
+  margin-top: 22px;
+  margin-bottom: 2px;
+}
+.nameArea__error--hide {
+  display: none;
+}
+.nameArea__button {
+  font-family: "Press Start 2P", cursive;
+  background-color: transparent;
+  letter-spacing: 12px;
+  border: none;
+  padding: 1rem;
+  border-radius: 25px;
+  color: #6ded8a;
+  border: solid 1px #6ded8a;
+  cursor: pointer;
+  transition: background-color ease 800ms;
+  margin-top: 20px;
+}
+.nameArea__button:hover {
+  background-color: rgba(109, 237, 138, 0.6);
+  color: white;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1rem 0;
+}
+.controls__button {
+  padding: 0.8rem 2rem;
+  background-color: transparent;
+  border: solid 1px #6ded8a;
+  border-radius: 20px;
+  color: white;
 }/*# sourceMappingURL=main.css.map */
