@@ -3,8 +3,8 @@ import { Game } from './Game.js';
 const nomSound = new Audio('./nom.wav');
 
 export class Snake extends Game {
-	constructor(score) {
-		super(score);
+	constructor(score, speed) {
+		super(score, speed);
 
 		this.snake = [
 			[8, 8],
@@ -12,14 +12,10 @@ export class Snake extends Game {
 			[8, 6],
 		];
 		this.currentDirection = '';
-		this.speed = 3;
 		this.food = [];
 		this.moving = false;
 		this.direction = null;
-		this.pendingChanges = {
-			row: '',
-			col: '',
-		};
+		this.pendingDirection = null;
 		this.dead = false;
 	}
 
@@ -27,7 +23,7 @@ export class Snake extends Game {
 		this.snake.forEach((segment) => {
 			document.getElementById(segment).classList.add('snake-body');
 		});
-
+		console.log(this.speed);
 		this.addFood();
 	}
 
@@ -58,6 +54,12 @@ export class Snake extends Game {
 	}
 
 	setDirection(direction) {
+		this.pendingDirection = direction;
+		if (this.direction === 'right' && direction === 'left') return;
+		if (this.direction === 'left' && direction === 'right') return;
+		if (this.direction === 'up' && direction === 'down') return;
+		if (this.direction === 'down' && direction === 'up') return;
+
 		this.direction = direction;
 
 		if (!this.moving) {
@@ -81,12 +83,12 @@ export class Snake extends Game {
 
 	directSnake() {
 		let row, col;
-		if (this.direction === 'right') {
+		if (this.direction === 'right' && this.direction !== 'left') {
 			row = this.snake[0][0];
 			col = this.snake[0][1] + 1;
 		}
 
-		if (this.direction === 'left') {
+		if (this.direction === 'left' && this.direction !== 'right') {
 			row = this.snake[0][0];
 			col = this.snake[0][1] - 1;
 		}
@@ -135,6 +137,7 @@ export class Snake extends Game {
 
 		setTimeout(() => {
 			this.directSnake();
+			console.log(this.speed);
 		}, 400 / this.speed);
 	}
 }
