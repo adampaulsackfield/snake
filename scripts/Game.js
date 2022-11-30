@@ -1,6 +1,4 @@
-const game = document.getElementById('game');
 const scoreBoard = document.getElementById('scoreBoard');
-const score = document.getElementById('score');
 const userName = document.getElementById('userName');
 
 export class Game {
@@ -9,22 +7,11 @@ export class Game {
 		this.score = 0;
 		this.highScore = 0;
 		this.name = name;
+		this.speed = 3;
 	}
 
-	buildGrid() {
-		console.log('Building grid');
-		for (let i = 0; i < this.gridSize; i++) {
-			for (let j = 0; j < this.gridSize; j++) {
-				let square = document.createElement('div');
-				square.classList.add('background');
-				square.id = `${i},${j}`;
-
-				game.appendChild(square);
-			}
-		}
+	setName() {
 		userName.innerHTML = this.name;
-
-		// this.getScores();
 	}
 
 	getScores() {
