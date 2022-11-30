@@ -19,10 +19,6 @@
 			<h2 class="display__heading">
 				Score: <span id="score" class="display__heading--score">0</span>
 			</h2>
-
-			<h2 id="displayName" class="display__heading">
-				Time: <span id="time" class="display__heading--time">00:00</span>
-			</h2>
 		</section>
 
 		<main class="main">
@@ -40,9 +36,17 @@
 					type="text"
 					placeholder="Enter Your Name..."
 				/>
+
 				<p id="error" class="nameArea__error">
 					Name must be 9 characters or less 🤷‍♂️
 				</p>
+
+				<select name="difficulty" id="difficulty">
+					<option value="normal">Normal</option>
+					<option value="heroic">Heroic</option>
+					<option value="legendary">Legendary</option>
+				</select>
+
 				<button id="nameBtn" class="nameArea__button">Ready</button>
 			</div>
 		</section>
