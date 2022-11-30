@@ -36,7 +36,7 @@
 	display: flex;
 
 	&__game {
-		width: 600px;
+		width: 400px;
 		margin: 0 auto;
 		display: flex;
 		flex-wrap: wrap;
@@ -54,6 +54,8 @@
 			background-color: red;
 			width: 20px;
 			height: 20px;
+			border-radius: 5px;
+			// border-bottom: solid 2px $color-pink;
 		}
 
 		& .food {
@@ -149,5 +151,13 @@
 		border: solid 1px $color-green;
 		border-radius: 20px;
 		color: white;
+	}
+}
+
+@media screen and (min-width: 800px) {
+	.main {
+		&__game {
+			width: 600px;
+		}
 	}
 }
