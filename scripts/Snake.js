@@ -1,10 +1,12 @@
 import { Game } from './Game.js';
 
 const nomSound = new Audio('./nom.wav');
+const loseEl = document.getElementById('lose');
+const finalScore = document.getElementById('finalScore');
 
 export class Snake extends Game {
-	constructor(score, speed, postScore, name) {
-		super(score, speed, postScore, name);
+	constructor(score, speed, postScore, name, gridSize) {
+		super(score, speed, postScore, name, gridSize);
 
 		this.snake = [
 			[8, 8],
@@ -28,13 +30,14 @@ export class Snake extends Game {
 	}
 
 	addFood() {
-		const randomLocation = `${Math.floor(Math.random() * 17)},${Math.floor(
-			Math.random() * 17
-		)}`;
+		const randomLocation = `${Math.floor(
+			Math.random() * this.gridSize
+		)},${Math.floor(Math.random() * this.gridSize)}`;
 
 		for (let index = 0; index < this.snake.length; index++) {
 			if (this.snake[index].join(',') === randomLocation) {
 				this.addFood();
+				break;
 			} else {
 				this.food = randomLocation.split(',');
 				document.getElementById(randomLocation).classList.add('food');
@@ -79,9 +82,10 @@ export class Snake extends Game {
 
 	gameOver() {
 		let name = this.name;
+		finalScore.innerHTML = this.score;
 		this.postScore({ name, score: this.score });
+		loseEl.classList.remove('none');
 		this.dead = true;
-		console.log('dead');
 	}
 
 	directSnake() {

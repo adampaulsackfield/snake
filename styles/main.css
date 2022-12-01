@@ -75,17 +75,7 @@ body {
 }
 
 .scoreBoard {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 350px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: "Press Start 2P", cursive;
-  color: #6ded8a;
+  display: none;
 }
 .scoreBoard .scoreItem {
   margin-top: 1rem;
@@ -161,10 +151,42 @@ body {
   width: 400px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding: 1rem 0;
 }
 .controls__button {
+  font-family: "Press Start 2P", cursive;
+  padding: 0.8rem 2rem;
+  background-color: transparent;
+  border: solid 1px #6ded8a;
+  color: #6ded8a;
+}
+
+.loseScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: solid 2px red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.loseScreen__heading {
+  font-family: "Press Start 2P", cursive;
+  color: #6ded8a;
+  font-size: 2rem;
+  letter-spacing: 10px;
+}
+.loseScreen__score {
+  font-family: "Press Start 2P", cursive;
+  color: #6ded8a;
+  margin: 1rem 0;
+}
+.loseScreen__button {
   font-family: "Press Start 2P", cursive;
   padding: 0.8rem 2rem;
   background-color: transparent;
@@ -178,6 +200,20 @@ body {
   }
   .main__game {
     width: 600px;
+  }
+  .scoreBoard {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Press Start 2P", cursive;
+    color: #6ded8a;
   }
   .controls {
     width: 600px;

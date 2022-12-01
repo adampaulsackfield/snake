@@ -49,10 +49,13 @@
 
 		<section class="controls">
 			<button id="newGame" class="controls__button">New Game</button>
-			<button id="pause" class="controls__button">Pause</button>
 		</section>
 
-		<section class="difficulty"></section>
+		<section id="lose" class="loseScreen none">
+			<h2 class="loseScreen__heading">You Lose</h2>
+			<h3 class="loseScreen__score">Score: <span id="finalScore">0</span></h3>
+			<button class="loseScreen__button" id="startOverBtn">Start Over</button>
+		</section>
 
 		<script src="./scripts/main.js" type="module"></script>
 	</body>
