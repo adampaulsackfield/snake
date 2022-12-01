@@ -50,7 +50,7 @@ export class Game {
 			//make sure to serialize your JSON body
 			body: JSON.stringify({
 				data: {
-					name: this.name,
+					name: userName.innerHTML,
 					score: entry.score,
 				},
 			}),
