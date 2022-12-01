@@ -3,8 +3,8 @@ import { Game } from './Game.js';
 const nomSound = new Audio('./nom.wav');
 
 export class Snake extends Game {
-	constructor(score, speed, postScore) {
-		super(score, speed, postScore);
+	constructor(score, speed, postScore, name) {
+		super(score, speed, postScore, name);
 
 		this.snake = [
 			[8, 8],
@@ -23,7 +23,7 @@ export class Snake extends Game {
 		this.snake.forEach((segment) => {
 			document.getElementById(segment).classList.add('snake-body');
 		});
-		console.log(this.speed);
+		console.log('addSnake', this.name);
 		this.addFood();
 	}
 
@@ -78,7 +78,8 @@ export class Snake extends Game {
 	}
 
 	gameOver() {
-		this.postScore({ name: this.name, score: this.score });
+		let name = this.name;
+		this.postScore({ name, score: this.score });
 		this.dead = true;
 		console.log('dead');
 	}
