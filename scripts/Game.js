@@ -6,8 +6,9 @@ export class Game {
 		this.gridSize = 30;
 		this.score = 0;
 		this.highScore = 0;
-		this.name = name;
 		this.speed = 3;
+		this.highScores = [];
+		this.name = name;
 	}
 
 	setName() {
@@ -20,22 +21,43 @@ export class Game {
 				return res.json();
 			})
 			.then((data) => {
-				if (data.scores.length > 0) {
-					data.scores.forEach((score) => {
-						let p = document.createElement('div');
-						p.innerHTML = `Name: ${score.name} Score: ${score.score}`;
-						scoreBoard.appendChild(p);
+				console.log(data.scores);
+				this.highScores = data.scores;
+				data.scores
+					.sort((a, b) => a.score - b.score)
+					.slice(0, 5)
+					.forEach((entry) => {
+						const li = document.createElement('li');
+						li.classList.add('scoreItem');
+						li.innerHTML = `${entry.name}: ${entry.score}`;
+						scoreBoard.appendChild(li);
 					});
-				} else {
-					let p = document.createElement('div');
-					p.innerHTML = `No High Scores`;
-					scoreBoard.appendChild(p);
-				}
 			});
 	}
 
-	postScore() {
-		// TODO
+	buildScoreboard() {
+		console.log(this.highScores);
+	}
+
+	postScore(entry) {
+		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores', {
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+
+			//make sure to serialize your JSON body
+			body: JSON.stringify({
+				data: {
+					name: this.name,
+					score: entry.score,
+				},
+			}),
+		}).then((response) => {
+			//do something awesome that makes the world a better place
+			console.log(response);
+		});
 	}
 }
 

@@ -32,6 +32,10 @@ const startGame = () => {
 	// Build Grid - Based on view port width
 	newBoard.buildGrid(boardSize);
 
+	// Get Scores
+	newGame.getScores();
+	newGame.buildScoreboard();
+
 	// Set the players name
 	newGame.setName();
 

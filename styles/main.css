@@ -25,6 +25,7 @@ body {
   text-align: center;
   padding-top: 1.2rem;
   letter-spacing: 10px;
+  margin-top: 2rem;
 }
 
 .display {
@@ -43,7 +44,9 @@ body {
 }
 
 .main {
+  height: 60vh;
   display: flex;
+  align-items: center;
 }
 .main__game {
   width: 400px;
@@ -69,6 +72,26 @@ body {
   width: 20px;
   height: 20px;
   border-radius: 50%;
+}
+
+.scoreBoard {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Press Start 2P", cursive;
+  color: #6ded8a;
+}
+.scoreBoard .scoreItem {
+  margin-top: 1rem;
+  list-style: none;
+  padding: 10px 0;
+  color: white;
 }
 
 .nameArea {
@@ -135,20 +158,28 @@ body {
 }
 
 .controls {
+  width: 400px;
+  margin: 0 auto;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 1rem 0;
 }
 .controls__button {
+  font-family: "Press Start 2P", cursive;
   padding: 0.8rem 2rem;
   background-color: transparent;
   border: solid 1px #6ded8a;
-  border-radius: 20px;
-  color: white;
+  color: #6ded8a;
 }
 
 @media screen and (min-width: 800px) {
+  .main {
+    height: 75vh;
+  }
   .main__game {
+    width: 600px;
+  }
+  .controls {
     width: 600px;
   }
 }/*# sourceMappingURL=main.css.map */

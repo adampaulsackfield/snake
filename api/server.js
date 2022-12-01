@@ -18,4 +18,11 @@ server.use('/api', routes);
 server.all('*', (req, res) => {
 	res.status(404).send({ message: 'Path not found' });
 });
+
+server.use(
+	cors({
+		origin: ['http://localhost', 'http://localhost:5501'],
+	})
+);
+
 server.listen(PORT);

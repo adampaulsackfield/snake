@@ -12,18 +12,15 @@ const getScores = async (req, res, next) => {
 };
 
 const addScore = async (req, res, next) => {
-	const { data } = req.body;
-
 	console.log(req.body);
-
 	try {
-		if (!data.name || !data.score) {
+		if (!req.body.data.name || !req.body.data.score) {
 			throw new Error('missing required fields');
 		}
 
 		let newScore = {
-			name: data.name,
-			score: data.score,
+			name: req.body.data.name,
+			score: req.body.data.score,
 		};
 
 		const savedScore = await Score.create(newScore);

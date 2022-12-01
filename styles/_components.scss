@@ -7,6 +7,7 @@
 	text-align: center;
 	padding-top: 1.2rem;
 	letter-spacing: 10px;
+	margin-top: 2rem;
 }
 
 .display {
@@ -33,7 +34,9 @@
 }
 
 .main {
+	height: 60vh;
 	display: flex;
+	align-items: center;
 
 	&__game {
 		width: 400px;
@@ -64,6 +67,27 @@
 			height: 20px;
 			border-radius: 50%;
 		}
+	}
+}
+
+.scoreBoard {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 350px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-family: $font-primary;
+	color: $color-green;
+
+	.scoreItem {
+		margin-top: 1rem;
+		list-style: none;
+		padding: 10px 0;
+		color: white;
 	}
 }
 
@@ -141,23 +165,31 @@
 }
 
 .controls {
+	width: 400px;
+	margin: 0 auto;
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	padding: 1rem 0;
 
 	&__button {
+		font-family: $font-primary;
 		padding: 0.8rem 2rem;
 		background-color: transparent;
 		border: solid 1px $color-green;
-		border-radius: 20px;
-		color: white;
+		color: $color-green;
 	}
 }
 
 @media screen and (min-width: 800px) {
 	.main {
+		height: 75vh;
+
 		&__game {
 			width: 600px;
 		}
+	}
+
+	.controls {
+		width: 600px;
 	}
 }
