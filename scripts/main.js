@@ -5,6 +5,9 @@ import { Snake } from './Snake.js';
 let user = localStorage.getItem('name');
 let nameInput = document.getElementById('name');
 let nameBtn = document.getElementById('nameBtn');
+let newGameBtn = document.getElementById('newGame');
+let startOverBtn = document.getElementById('startOverBtn');
+let loseArea = document.getElementById('lose');
 
 // Hide the error message for name length
 error.classList.add('nameArea__error--hide');
@@ -89,3 +92,11 @@ const handleInput = () => {
 // Add event listeners for name section
 nameBtn.addEventListener('click', startGame);
 nameInput.addEventListener('keyup', handleInput);
+newGameBtn.addEventListener('click', () => {
+	location.reload();
+});
+
+startOverBtn.addEventListener('click', () => {
+	loseArea.classList.add('none');
+	location.reload();
+});
