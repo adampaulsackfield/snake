@@ -16,7 +16,7 @@ export class Game {
 	}
 
 	getScores() {
-		return fetch('http://localhost:5550/api/scores')
+		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores')
 			.then((res) => {
 				return res.json();
 			})
