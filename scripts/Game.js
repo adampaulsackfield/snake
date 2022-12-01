@@ -24,8 +24,9 @@ export class Game {
 				console.log(data.scores);
 				this.highScores = data.scores;
 				data.scores
-					.sort((a, b) => b.score + a.score)
+					.sort((a, b) => b.score - a.score)
 					.slice(0, 5)
+					.reverse()
 					.forEach((entry) => {
 						const li = document.createElement('li');
 						li.classList.add('scoreItem');
