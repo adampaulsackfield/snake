@@ -3,8 +3,8 @@ import { Game } from './Game.js';
 const nomSound = new Audio('./nom.wav');
 
 export class Snake extends Game {
-	constructor(score, speed) {
-		super(score, speed);
+	constructor(score, speed, postScore) {
+		super(score, speed, postScore);
 
 		this.snake = [
 			[8, 8],
@@ -46,7 +46,7 @@ export class Snake extends Game {
 	isFood() {
 		if (this.food.join(',') === this.snake[0].join(',')) {
 			score.innerHTML = ++this.score;
-			// nomSound.play();
+			nomSound.play();
 			return true;
 		} else {
 			return false;
@@ -78,7 +78,9 @@ export class Snake extends Game {
 	}
 
 	gameOver() {
+		this.postScore({ name: this.name, score: this.score });
 		this.dead = true;
+		console.log('dead');
 	}
 
 	directSnake() {
@@ -124,6 +126,7 @@ export class Snake extends Game {
 
 		if (headSquare === null) {
 			console.log('you Lose');
+			this.gameOver();
 			return;
 		}
 

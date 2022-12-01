@@ -21,9 +21,11 @@
 			</h2>
 		</section>
 
-		<main class="main">
-			<section id="scoreBoard" class="main__scoreBoard"></section>
+		<section id="scoreBoard" class="scoreBoard">
+			<h1>High Scores</h1>
+		</section>
 
+		<main class="main">
 			<section id="game" class="main__game"></section>
 		</main>
 
@@ -41,12 +43,6 @@
 					Name must be 9 characters or less 🤷‍♂️
 				</p>
 
-				<select name="difficulty" id="difficulty">
-					<option value="normal">Normal</option>
-					<option value="heroic">Heroic</option>
-					<option value="legendary">Legendary</option>
-				</select>
-
 				<button id="nameBtn" class="nameArea__button">Ready</button>
 			</div>
 		</section>
@@ -55,6 +51,8 @@
 			<button id="newGame" class="controls__button">New Game</button>
 			<button id="pause" class="controls__button">Pause</button>
 		</section>
+
+		<section class="difficulty"></section>
 
 		<script src="./scripts/main.js" type="module"></script>
 	</body>
