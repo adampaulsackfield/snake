@@ -43,8 +43,7 @@ const startGame = () => {
 	game.setName();
 
 	// Get Scores
-	// game.getScores();
-	// game.buildScoreboard();
+	game.getScores();
 
 	// Create a snake
 	snake.addSnake();
