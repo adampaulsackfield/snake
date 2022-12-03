@@ -1,18 +1,27 @@
-const scoreBoard = document.getElementById('scoreBoard');
 const userName = document.getElementById('userName');
+const scoreBoard = document.getElementById('scoreBoard');
 
 export class Game {
-	constructor(name) {
-		this.gridSize = 30;
-		this.score = 0;
-		this.highScore = 0;
-		this.speed = 3;
-		this.highScores = [];
+	constructor(name, gridSize) {
 		this.name = name;
+		this.gridSize = gridSize;
+		this.score = 0;
 	}
 
 	setName() {
 		userName.innerHTML = this.name;
+	}
+
+	generateRandom() {
+		return `${Math.floor(Math.random() * this.gridSize)}`;
+	}
+
+	getScore() {
+		return this.score;
+	}
+
+	updateScore() {
+		return ++this.score;
 	}
 
 	getScores() {
@@ -21,7 +30,6 @@ export class Game {
 				return res.json();
 			})
 			.then((data) => {
-				console.log(data.scores);
 				this.highScores = data.scores;
 				data.scores
 					.sort((a, b) => b.score - a.score)
@@ -39,7 +47,7 @@ export class Game {
 		console.log(this.highScores);
 	}
 
-	postScore(entry) {
+	postScore() {
 		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores', {
 			method: 'post',
 			headers: {
@@ -47,19 +55,14 @@ export class Game {
 				'Content-Type': 'application/json',
 			},
 
-			//make sure to serialize your JSON body
 			body: JSON.stringify({
 				data: {
-					name: userName.innerHTML,
-					score: entry.score,
+					name: this.name,
+					score: this.score,
 				},
 			}),
 		}).then((response) => {
-			//do something awesome that makes the world a better place
 			console.log(response);
 		});
 	}
 }
-
-// TODO - Snake can still go back the opposite direction
-// TODO - Food can spawn under the snake's body

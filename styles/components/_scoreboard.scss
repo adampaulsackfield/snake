@@ -1,0 +1,12 @@
+@use '../variables' as *;
+
+.scoreBoard {
+	display: none;
+
+	.scoreItem {
+		margin-top: 1rem;
+		list-style: none;
+		padding: 10px 0;
+		color: white;
+	}
+}

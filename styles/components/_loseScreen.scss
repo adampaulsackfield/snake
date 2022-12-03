@@ -1,0 +1,37 @@
+@use '../variables' as *;
+
+.loseScreen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border: solid 2px red;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	background-color: rgba(0, 0, 0, 0.8);
+
+	&__heading {
+		font-family: $font-primary;
+		color: $color-green;
+		font-size: 2rem;
+		letter-spacing: 10px;
+	}
+
+	&__score {
+		font-family: $font-primary;
+		color: $color-green;
+		margin: 1rem 0;
+	}
+
+	&__button {
+		font-family: $font-primary;
+		padding: 0.8rem 2rem;
+		background-color: transparent;
+		border: solid 1px $color-green;
+		color: $color-green;
+	}
+}

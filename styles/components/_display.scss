@@ -1,0 +1,24 @@
+@use '../variables' as *;
+
+.display {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	font-family: $font-primary;
+	font-size: 0.6rem;
+
+	height: 60px;
+
+	&__name {
+		&--user {
+			color: $color-green;
+		}
+	}
+
+	&__heading {
+		&--time,
+		&--score {
+			color: $color-green;
+		}
+	}
+}
