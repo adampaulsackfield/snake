@@ -59,7 +59,6 @@ export class Snake extends Game {
 	setDirection(direction) {
 		this.pendingDirection = direction;
 
-		this.pendingDirection = direction;
 		if (this.direction === 'right' && direction === 'left') return;
 		if (this.direction === 'left' && direction === 'right') return;
 		if (this.direction === 'up' && direction === 'down') return;
