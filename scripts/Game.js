@@ -1,4 +1,3 @@
-const userName = document.getElementById('userName');
 const scoreBoard = document.getElementById('scoreBoard');
 
 export class Game {
@@ -7,10 +6,6 @@ export class Game {
 		this.gridSize = gridSize;
 		this.score = 0;
 		this.highScores = [];
-	}
-
-	setName() {
-		userName.innerHTML = this.name;
 	}
 
 	generateRandom() {
