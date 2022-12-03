@@ -4,6 +4,7 @@ import { Snake } from './Snake.js';
 
 let user = localStorage.getItem('name');
 
+const userName = document.getElementById('userName');
 const nameInput = document.getElementById('name');
 const nameBtn = document.getElementById('nameBtn');
 const nameArea = document.getElementById('nameArea');
@@ -40,7 +41,7 @@ const startGame = () => {
 	board.buildGrid();
 
 	// Set the players name
-	game.setName();
+	userName.innerHTML = user;
 
 	// Get Scores
 	game.getScores();
@@ -48,6 +49,7 @@ const startGame = () => {
 	// Create a snake
 	snake.addSnake();
 
+	// Add Food
 	snake.addFood();
 
 	// Add Event Listeners
