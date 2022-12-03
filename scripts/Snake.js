@@ -1,20 +1,21 @@
 import { Game } from './Game.js';
 
+const score = document.getElementById('score');
 const nomSound = new Audio('./nom.wav');
 const loseEl = document.getElementById('lose');
 const finalScore = document.getElementById('finalScore');
 
 export class Snake extends Game {
-	constructor(score, speed, postScore, name, gridSize) {
-		super(score, speed, postScore, name, gridSize);
+	constructor(user, gridSize, speed) {
+		super(user, gridSize);
 
+		this.speed = speed;
 		this.snake = [
 			[8, 8],
 			[8, 7],
 			[8, 6],
 		];
-		this.currentDirection = '';
-		this.food = [];
+		this.food = null;
 		this.moving = false;
 		this.direction = null;
 		this.pendingDirection = null;
@@ -25,22 +26,20 @@ export class Snake extends Game {
 		this.snake.forEach((segment) => {
 			document.getElementById(segment).classList.add('snake-body');
 		});
-		console.log('addSnake', this.name);
-		this.addFood();
 	}
 
 	addFood() {
-		const randomLocation = `${Math.floor(
-			Math.random() * this.gridSize
-		)},${Math.floor(Math.random() * this.gridSize)}`;
+		const randomX = this.generateRandom();
+		const randomY = this.generateRandom();
+		const food = [Number(randomX), Number(randomY)];
 
-		for (let index = 0; index < this.snake.length; index++) {
-			if (this.snake[index].join(',') === randomLocation) {
+		for (let i = 0; i < this.snake.length; i++) {
+			if (this.snake[i] === food) {
 				this.addFood();
 				break;
 			} else {
-				this.food = randomLocation.split(',');
-				document.getElementById(randomLocation).classList.add('food');
+				this.food = food;
+				document.getElementById(food.join(',')).classList.add('food');
 				break;
 			}
 		}
@@ -48,8 +47,9 @@ export class Snake extends Game {
 
 	isFood() {
 		if (this.food.join(',') === this.snake[0].join(',')) {
-			score.innerHTML = ++this.score;
+			score.innerHTML = this.updateScore();
 			nomSound.play();
+
 			return true;
 		} else {
 			return false;
@@ -57,6 +57,8 @@ export class Snake extends Game {
 	}
 
 	setDirection(direction) {
+		this.pendingDirection = direction;
+
 		this.pendingDirection = direction;
 		if (this.direction === 'right' && direction === 'left') return;
 		if (this.direction === 'left' && direction === 'right') return;
@@ -71,9 +73,9 @@ export class Snake extends Game {
 		}
 	}
 
-	isSnake(coordsArr) {
+	isSnake(coords) {
 		for (let i = 0; i < this.snake.length; i++) {
-			if (coordsArr.join(',') === this.snake[i].join(',')) {
+			if (coords === this.snake[i]) {
 				this.gameOver();
 				break;
 			}
@@ -81,71 +83,65 @@ export class Snake extends Game {
 	}
 
 	gameOver() {
-		let name = this.name;
-		finalScore.innerHTML = this.score;
-		this.postScore({ name, score: this.score });
-		loseEl.classList.remove('none');
 		this.dead = true;
+		loseEl.classList.remove('hide');
+		this.postScore({ name: this.name, score: this.score });
+		finalScore.innerHTML = this.getScore();
 	}
 
 	directSnake() {
-		let row, col;
+		let coordX, coordY;
+
 		if (this.direction === 'right' && this.direction !== 'left') {
-			row = this.snake[0][0];
-			col = this.snake[0][1] + 1;
+			coordX = this.snake[0][0];
+			coordY = this.snake[0][1] + 1;
 		}
 
 		if (this.direction === 'left' && this.direction !== 'right') {
-			row = this.snake[0][0];
-			col = this.snake[0][1] - 1;
+			coordX = this.snake[0][0];
+			coordY = this.snake[0][1] - 1;
 		}
 
 		if (this.direction === 'up') {
-			row = this.snake[0][0] - 1;
-			col = this.snake[0][1];
+			coordX = this.snake[0][0] - 1;
+			coordY = this.snake[0][1];
 		}
 
 		if (this.direction === 'down') {
-			row = this.snake[0][0] + 1;
-			col = this.snake[0][1];
+			coordX = this.snake[0][0] + 1;
+			coordY = this.snake[0][1];
 		}
 
-		if (this.isSnake([row, col])) return this.gameOver();
-		else this.moveSnake(row, col, this.isFood());
+		if (this.isSnake([coordX, coordY])) return this.gameOver();
+		else this.moveSnake(coordX, coordY, this.isFood());
 	}
 
-	moveSnake(row, col, eating) {
+	moveSnake(coordX, coordY, eating) {
+		let head = [coordX, coordY];
+		let headElement, tailElement;
+
 		if (this.dead) return;
 
 		if (eating) {
-			let foodSquare = document.getElementById(`${this.food.join(',')}`);
-			foodSquare.classList.remove('food');
+			const food = document.getElementById(this.food.join(','));
+			food.classList.remove('food');
 			this.addFood();
+		} else {
+			const tail = this.snake.pop();
+			tailElement = document.getElementById(tail.join(','));
+			tailElement.classList.remove('snake-body');
 		}
-		let head = [row, col];
-		let headSquare, tailSquare, foodSquare;
+
 		this.snake.unshift(head);
 
-		headSquare = document.getElementById(`${this.snake[0].join(',')}`);
-		foodSquare = document.getElementById(`${this.food.join(',')}`);
+		headElement = document.getElementById(this.snake[0].join(','));
 
-		if (headSquare === null) {
-			console.log('you Lose');
-			this.gameOver();
-			return;
-		}
+		if (headElement === null) return this.gameOver();
 
-		headSquare.classList.add('snake-body');
-
-		if (!eating) {
-			let tail = this.snake.pop();
-			tailSquare = document.getElementById(tail.join(','));
-			tailSquare.classList.remove('snake-body');
-		}
+		headElement.classList.add('snake-body');
 
 		setTimeout(() => {
 			this.directSnake();
-			console.log(this.speed);
 		}, 400 / this.speed);
 	}
 }

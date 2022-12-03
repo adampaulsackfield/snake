@@ -1,25 +1,23 @@
-import { Game } from './Game.js';
+const gameBoard = document.getElementById('game');
 
-const gameEl = document.getElementById('game');
-
-export class Board extends Game {
-	constructor() {
-		super();
+export class Board {
+	constructor(gridSize) {
+		this.gridSize = gridSize;
 	}
 
-	buildGrid(size) {
-		for (let i = 0; i < size; i++) {
-			for (let j = 0; j < size; j++) {
+	buildGrid() {
+		for (let i = 0; i < this.gridSize; i++) {
+			for (let j = 0; j < this.gridSize; j++) {
 				let square = document.createElement('div');
 				square.classList.add('background');
 				square.id = `${i},${j}`;
 
-				gameEl.appendChild(square);
+				gameBoard.appendChild(square);
 			}
 		}
 	}
 
 	removeGrid() {
-		gameEl.innerHTML = '';
+		gameBoard.innerHTML = '';
 	}
 }

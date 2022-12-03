@@ -3,11 +3,13 @@ import { Board } from './Board.js';
 import { Snake } from './Snake.js';
 
 let user = localStorage.getItem('name');
-let nameInput = document.getElementById('name');
-let nameBtn = document.getElementById('nameBtn');
-let newGameBtn = document.getElementById('newGame');
-let startOverBtn = document.getElementById('startOverBtn');
-let loseArea = document.getElementById('lose');
+
+const nameInput = document.getElementById('name');
+const nameBtn = document.getElementById('nameBtn');
+const nameArea = document.getElementById('nameArea');
+const newGameBtn = document.getElementById('newGame');
+const loseArea = document.getElementById('lose');
+const error = document.getElementById('error');
 
 // Hide the error message for name length
 error.classList.add('nameArea__error--hide');
@@ -17,33 +19,37 @@ const startGame = () => {
 	localStorage.setItem('name', user);
 
 	// Mobile board size
-	let boardSize = 20;
-
-	// Initiate Classes
-	const newGame = new Game(user);
-	const newBoard = new Board();
-	const newSnake = new Snake();
+	let gridSize = 20;
 
 	// Checks for larger display so we can increase grid size. Media queries in CSS assist with this feature by altering the dimensions.
 	if (window.innerWidth > 799) {
-		boardSize = 30;
+		gridSize = 30;
 	}
 
+	const game = new Game(user, gridSize);
+	const board = new Board(gridSize);
+	const snake = new Snake(user, gridSize, 3);
+
 	// Hide Welcome Screen
-	nameArea.classList.add('none');
+	nameArea.classList.add('hide');
 
-	// Build Grid - Based on view port width
-	newBoard.buildGrid(boardSize);
+	// Hide Lose Screen
+	loseArea.classList.add('hide');
 
-	// Get Scores
-	newGame.getScores();
-	newGame.buildScoreboard();
+	// Build Grid
+	board.buildGrid();
 
 	// Set the players name
-	newGame.setName();
+	game.setName();
+
+	// Get Scores
+	// game.getScores();
+	// game.buildScoreboard();
 
 	// Create a snake
-	newSnake.addSnake();
+	snake.addSnake();
+
+	snake.addFood();
 
 	// Add Event Listeners
 	window.onkeydown = (e) => {
@@ -53,19 +59,19 @@ const startGame = () => {
 		let down = 40;
 
 		if (e.keyCode === left) {
-			newSnake.setDirection('left');
+			snake.setDirection('left');
 		}
 
 		if (e.keyCode === up) {
-			newSnake.setDirection('up');
+			snake.setDirection('up');
 		}
 
 		if (e.keyCode === right) {
-			newSnake.setDirection('right');
+			snake.setDirection('right');
 		}
 
 		if (e.keyCode === down) {
-			newSnake.setDirection('down');
+			snake.setDirection('down');
 		}
 	};
 };
