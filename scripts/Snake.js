@@ -75,7 +75,7 @@ export class Snake extends Game {
 
 	isSnake(coords) {
 		for (let i = 0; i < this.snake.length; i++) {
-			if (coords === this.snake[i]) {
+			if (coords.join(',') === this.snake[i].join(',')) {
 				this.gameOver();
 				break;
 			}
