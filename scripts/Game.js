@@ -6,6 +6,7 @@ export class Game {
 		this.name = name;
 		this.gridSize = gridSize;
 		this.score = 0;
+		this.highScores = [];
 	}
 
 	setName() {
@@ -31,20 +32,20 @@ export class Game {
 			})
 			.then((data) => {
 				this.highScores = data.scores;
-				data.scores
-					.sort((a, b) => b.score - a.score)
-					.slice(0, 5)
-					.forEach((entry) => {
-						const li = document.createElement('li');
-						li.classList.add('scoreItem');
-						li.innerHTML = `${entry.name}: ${entry.score}`;
-						scoreBoard.appendChild(li);
-					});
+				this.buildScoreboard();
 			});
 	}
 
 	buildScoreboard() {
-		console.log(this.highScores);
+		this.highScores
+			.sort((a, b) => b.score - a.score)
+			.slice(0, 8)
+			.forEach((entry) => {
+				const li = document.createElement('li');
+				li.classList.add('scoreItem');
+				li.innerHTML = `${entry.name}: ${entry.score}`;
+				scoreBoard.appendChild(li);
+			});
 	}
 
 	postScore() {
