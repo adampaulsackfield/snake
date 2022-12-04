@@ -14,9 +14,11 @@ Features
 
 ## TODO
 
-- [ ] Test food doesn't spawn under snake
+- [✅] Test food doesn't spawn under snake
 - [ ] Does the snake die one box too late?
 - [ ] Canvas
-- [ ] Comments
+- [✅] Comments
 - [ ] README
 - [ ] SORT API HANDLING UX
+- [ ] Snake dies with two quick directions changes?
+- [ ] Add check to see if score would be in top 10, if not don't make post req
