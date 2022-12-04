@@ -1,23 +1,46 @@
 const scoreBoard = document.getElementById('scoreBoard');
+const userName = document.getElementById('userName');
 
 export class Game {
-	constructor(name, gridSize) {
+	constructor(width, height, name) {
+		this.canvas = document.getElementById('canvas');
+		this.world = this.canvas.getContext('2d');
+		this.width = width;
+		this.height = height;
 		this.name = name;
-		this.gridSize = gridSize;
 		this.score = 0;
 		this.highScores = [];
+		this.pendingDirection = null;
+		this.direction = null;
+		this.moving = false;
+		this.dead = false;
+		this.coolDown = false;
 	}
 
-	// Used to generate gridSize constrained random numbers to enable spawning of food
+	setName() {
+		userName.innerHTML = this.name;
+	}
+
+	createCanvas() {
+		this.world.clearRect(0, 0, this.width, this.height);
+		this.world.fillRect(0, 0, this.width, this.height);
+		return;
+	}
+
+	updateCanvas(color, x, y, eating = false) {
+		this.world.fillStyle = color;
+		this.world.fillRect(x, y, this.grid, this.grid);
+		return;
+	}
+
 	generateRandom() {
-		return `${Math.floor(Math.random() * this.gridSize)}`;
+		return Math.floor(Math.random() * (this.width / this.grid)) * this.grid;
 	}
 
 	getScore() {
 		return this.score;
 	}
 
-	// Method to increment the score. Important to note that we want to increment the score before returning it
 	updateScore() {
 		return ++this.score;
 	}
@@ -36,19 +59,22 @@ export class Game {
 
 	// Sort, slice and build the scoreboard.
 	buildScoreboard() {
+		scoreBoard.innerHTML = '';
+
 		this.highScores
 			.sort((a, b) => b.score - a.score)
-			.slice(0, 8)
+			.slice(0, 10)
 			.forEach((entry) => {
 				const li = document.createElement('li');
-				li.classList.add('scoreItem');
+				li.classList.add('scoreBoard__item');
 				li.innerHTML = `${entry.name}: ${entry.score}`;
 				scoreBoard.appendChild(li);
 			});
 	}
 
-	// Simple POST request to post new high scores
 	postScore() {
+		if (this.score <= this.highScores[(this.highScores.length = 1)]) return;
+
 		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores', {
 			method: 'post',
 			headers: {

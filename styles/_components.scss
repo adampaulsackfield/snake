@@ -1,39 +1,7 @@
-@use './variables' as *;
-
-@use './components/header';
 @use './components/display';
-@use './components/mainArea';
-@use './components/scoreboard';
-@use './components/nameArea';
-@use './components/controls';
+@use './components/canvas';
+@use './components/main';
+@use './components/header';
+@use './components/scoreBoard';
 @use './components/loseScreen';
-
-// Media Queries
-@media screen and (min-width: 800px) {
-	.main {
-		height: 75vh;
-
-		&__game {
-			width: 600px;
-		}
-	}
-
-	.scoreBoard {
-		display: block;
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		width: 350px;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		font-family: $font-primary;
-		color: $color-green;
-	}
-
-	.controls {
-		width: 600px;
-	}
-}
+@use './components/nameArea';

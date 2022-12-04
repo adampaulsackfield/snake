@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Snake</title>
+		<title>snake-canvas</title>
 
 		<link rel="stylesheet" href="./styles/main.css" />
 	</head>
@@ -21,12 +21,12 @@
 			</h2>
 		</section>
 
-		<section id="scoreBoard" class="scoreBoard">
-			<h1>High Scores</h1>
-		</section>
-
 		<main class="main">
-			<section id="game" class="main__game"></section>
+			<canvas id="canvas" class="canvas" width="600" height="600"></canvas>
+
+			<section id="scoreBoard" class="scoreBoard">
+				<h1 class="scoreBoard__header">High Scores</h1>
+			</section>
 		</main>
 
 		<section id="nameArea" class="nameArea">
@@ -39,16 +39,8 @@
 					placeholder="Enter Your Name..."
 				/>
 
-				<p id="error" class="nameArea__error">
-					Name must be 9 characters or less 🤷‍♂️
-				</p>
-
 				<button id="nameBtn" class="nameArea__button">Ready</button>
 			</div>
-		</section>
-
-		<section class="controls">
-			<button id="newGame" class="controls__button">New Game</button>
 		</section>
 
 		<section id="lose" class="loseScreen hide">

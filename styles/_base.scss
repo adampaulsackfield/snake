@@ -1,14 +1,12 @@
 body {
-	background-color: black;
-	color: white;
-	overflow-y: hidden;
+	background-color: #494949;
+}
+
+.container {
+	max-width: 1000px;
+	margin: 0 auto;
 }
 
 .hide {
 	display: none !important;
-}
-
-.flexCol {
-	display: flex;
-	flex-direction: column;
 }
