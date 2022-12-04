@@ -12,13 +12,10 @@ Features
 - [✅] Control buttons for restarting
 - [✅] Fully Responsive
 
-## TODO
+## Refactor
 
-- [✅] Test food doesn't spawn under snake
-- [ ] Does the snake die one box too late?
-- [ ] Canvas
 - [✅] Comments
+- [✅] Converted to use HTML Canvas Element
 - [ ] README
 - [ ] SORT API HANDLING UX
-- [ ] Snake dies with two quick directions changes?
-- [ ] Add check to see if score would be in top 10, if not don't make post req
+- [✅] Add check to see if score would be in top 10, if not don't make post req
