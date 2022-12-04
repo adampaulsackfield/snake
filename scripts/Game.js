@@ -73,7 +73,7 @@ export class Game {
 	}
 
 	postScore() {
-		if (this.score <= this.highScores[(this.highScores.length = 1)]) return;
+		if (this.score <= this.highScores[(this.highScores.length - 1)]) return;
 
 		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores', {
 			method: 'post',
