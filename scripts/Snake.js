@@ -6,35 +6,28 @@ const loseEl = document.getElementById('lose');
 const finalScore = document.getElementById('finalScore');
 
 export class Snake extends Game {
-	constructor(user, gridSize, speed) {
-		super(user, gridSize);
+	constructor(width, height) {
+		super(width, height);
 
-		this.speed = speed;
-		this.snake = [
-			[8, 8],
-			[8, 7],
-			[8, 6],
-		];
+		this.width = width;
+		this.height = height;
+		this.grid = 15;
+		this.snakeHead = [150, 150];
+		this.snake = [];
+		this.speed = 3;
 		this.food = null;
-		this.moving = false;
-		this.direction = null;
-		this.pendingDirection = null;
-		this.dead = false;
+		this.size = 3;
+		this.coolDown = false;
 	}
 
-	// Initialize the snake by adding the red color class
-	addSnake() {
-		this.snake.forEach((segment) => {
-			document.getElementById(segment).classList.add('snake-body');
-		});
+	createSnake() {
+		this.updateCanvas('red', this.snakeHead[0], this.snakeHead[1]);
 	}
 
-	// Using the generateRandom method, we generate random X and Y coords for the grid size, If the food is under the snake we return the same function until we have a food that is visible to the player.
 	addFood() {
 		const randomX = this.generateRandom();
 		const randomY = this.generateRandom();
 		const food = [Number(randomX), Number(randomY)];
-
 		for (let i = 0; i < this.snake.length; i++) {
 			if (this.snake[i].join(',') === food.join(',')) {
 				return this.addFood();
@@ -42,23 +35,28 @@ export class Snake extends Game {
 		}
 
 		this.food = food;
-		document.getElementById(food.join(',')).classList.add('food');
+		this.updateCanvas('green', this.food[0], this.food[1], 'food');
 	}
 
-	// Check if the Snake's Head is in the same location as the food. If so, increment score and play sound.
 	isFood() {
-		if (this.food.join(',') === this.snake[0].join(',')) {
-			score.innerHTML = this.updateScore();
+		if (this.food.join(',') === this.snakeHead.join(',')) {
 			nomSound.play();
-
+			this.addFood();
+			score.innerHTML = this.updateScore();
+			if (this.score % 2 === 0 && this.score !== 0) {
+				this.speed = this.speed + 0.2;
+			}
 			return true;
-		} else {
-			return false;
 		}
+
+		return false;
 	}
 
-	// Used for taking user input, checks to ensure that it is a legal move. Also sets as pendingDirection. On game start the !this.moving will be met and thus the game starts with directSnake()
 	setDirection(direction) {
+		if (this.coolDown) return;
+
+		this.coolDown = true;
+
 		this.pendingDirection = direction;
 
 		if (this.direction === 'right' && direction === 'left') return;
@@ -70,11 +68,14 @@ export class Snake extends Game {
 
 		if (!this.moving) {
 			this.moving = true;
-			this.directSnake();
+			this.move();
 		}
+
+		setTimeout(() => {
+			this.coolDown = false;
+		}, 150);
 	}
 
-	// Check for ensuring the snake is not crashing into it's own body
 	isSnake(coords) {
 		for (let i = 0; i < this.snake.length; i++) {
 			if (coords.join(',') === this.snake[i].join(',')) {
@@ -84,69 +85,54 @@ export class Snake extends Game {
 		}
 	}
 
-	// Sets the dead property, displays the lose screen, adds the score and makes a post request to the DB.
 	gameOver() {
 		this.dead = true;
 		loseEl.classList.remove('hide');
-		this.postScore({ name: this.name, score: this.score });
 		finalScore.innerHTML = this.getScore();
+		this.postScore();
 	}
 
-	// Logic for setting the next coords to apply the snake-body. As it is a 2D array we just need to increment or decrement the correct row or col.
-	directSnake() {
-		let coordX, coordY;
+	move() {
+		if (this.dead) return;
+
+		if (
+			this.snakeHead[0] > this.width ||
+			this.snakeHead[1] > this.height ||
+			this.snakeHead[0] < 0 ||
+			this.snakeHead[1] < 0 ||
+			this.isSnake(this.snakeHead)
+		) {
+			return this.gameOver();
+		}
+
+		this.snake.push([this.snakeHead[0], this.snakeHead[1]]);
 
 		if (this.direction === 'right' && this.direction !== 'left') {
-			coordX = this.snake[0][0];
-			coordY = this.snake[0][1] + 1;
+			this.snakeHead[0] = this.snakeHead[0] + this.grid;
 		}
 
 		if (this.direction === 'left' && this.direction !== 'right') {
-			coordX = this.snake[0][0];
-			coordY = this.snake[0][1] - 1;
+			this.snakeHead[0] = this.snakeHead[0] - this.grid;
 		}
 
 		if (this.direction === 'up') {
-			coordX = this.snake[0][0] - 1;
-			coordY = this.snake[0][1];
+			this.snakeHead[1] = this.snakeHead[1] - this.grid;
 		}
 
 		if (this.direction === 'down') {
-			coordX = this.snake[0][0] + 1;
-			coordY = this.snake[0][1];
+			this.snakeHead[1] = this.snakeHead[1] + this.grid;
 		}
 
-		if (this.isSnake([coordX, coordY])) return this.gameOver();
-		else this.moveSnake(coordX, coordY, this.isFood());
-	}
+		this.updateCanvas('red', this.snakeHead[0], this.snakeHead[1]);
 
-	// Where the snake segments and food elements are updated in the DOM. We check if the snake is eating, as if it is eating we only need to move the head, else move the head and remove the tail. setTimeout is used to set the game speed.
-	moveSnake(coordX, coordY, eating) {
-		let head = [coordX, coordY];
-		let headElement, tailElement;
-
-		if (this.dead) return;
-
-		if (eating) {
-			const food = document.getElementById(this.food.join(','));
-			food.classList.remove('food');
-			this.addFood();
-		} else {
-			const tail = this.snake.pop();
-			tailElement = document.getElementById(tail.join(','));
-			tailElement.classList.remove('snake-body');
+		if (this.snake.length > this.size && !this.isFood()) {
+			let tail = this.snake.shift();
+			this.updateCanvas('black', tail[0], tail[1]);
 		}
-
-		this.snake.unshift(head);
-
-		headElement = document.getElementById(this.snake[0].join(','));
-
-		if (headElement === null) return this.gameOver();
-
-		headElement.classList.add('snake-body');
 
 		setTimeout(() => {
-			this.directSnake();
-		}, 400 / this.speed);
+			this.move();
+			this.coolDown = false;
+		}, 600 / this.speed);
 	}
 }

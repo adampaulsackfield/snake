@@ -2,164 +2,67 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background-color: black;
-  color: white;
-  overflow-y: hidden;
+  background-color: #494949;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .hide {
   display: none !important;
 }
 
-.flexCol {
-  display: flex;
-  flex-direction: column;
-}
-
-.header {
-  font-family: "Press Start 2P", cursive;
-  font-size: 2.4rem;
-  color: #6ded8a;
-  text-align: center;
-  padding-top: 1.2rem;
-  letter-spacing: 10px;
-  margin-top: 2rem;
-}
-
 .display {
+  width: 600px;
+  margin: 20px 0;
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   font-family: "Press Start 2P", cursive;
-  font-size: 0.6rem;
-  height: 60px;
-}
-.display__name--user {
+  font-size: 0.8rem;
   color: #6ded8a;
 }
-.display__heading--time, .display__heading--score {
-  color: #6ded8a;
+
+.canvas {
+  border: solid 2px #ed3833;
 }
 
 .main {
-  height: 60vh;
+  width: 100%;
   display: flex;
-  align-items: center;
+  justify-content: space-between;
 }
-.main__game {
-  width: 400px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  border: solid 2px white;
-}
-.main__game .background {
-  background-color: black;
-  width: 20px;
-  height: 20px;
-}
-.main__game .snake-body {
-  display: block;
-  background-color: red;
-  width: 20px;
-  height: 20px;
-  border-radius: 5px;
-}
-.main__game .food {
-  background-color: green;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+
+.header {
+  font-size: 4rem;
+  font-family: "Press Start 2P", cursive;
+  color: #6ded8a;
+  text-align: center;
+  margin: 2rem 0;
 }
 
 .scoreBoard {
-  display: none;
-}
-.scoreBoard .scoreItem {
-  margin-top: 1rem;
-  list-style: none;
-  padding: 10px 0;
-  color: white;
-}
-
-.nameArea {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #232323;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-}
-.nameArea__heading {
+  justify-content: space-evenly;
   font-family: "Press Start 2P", cursive;
-  font-size: 4rem;
+}
+.scoreBoard__header {
+  font-size: 2rem;
   color: #6ded8a;
-  letter-spacing: 12px;
-  margin-bottom: 200px;
 }
-.nameArea__input {
-  padding: 0.4rem 1rem;
-  border: none;
-  border-bottom: solid 2px #6ded8a;
-  background-color: transparent;
-  font-family: "Press Start 2P", cursive;
-  color: #6ded8a;
-  letter-spacing: 4px;
-}
-.nameArea__input:focus {
-  outline: none;
-}
-.nameArea__input--error {
-  border-bottom-color: #ed3833;
-}
-.nameArea__error {
-  font-family: "Press Start 2P", cursive;
-  color: #ed3833;
-  text-align: center;
-  font-size: 0.6rem;
-  margin-top: 22px;
-  margin-bottom: 2px;
-}
-.nameArea__error--hide {
-  display: none;
-}
-.nameArea__button {
-  font-family: "Press Start 2P", cursive;
-  background-color: transparent;
-  letter-spacing: 12px;
-  border: none;
-  padding: 1rem;
-  border-radius: 25px;
-  color: #6ded8a;
-  border: solid 1px #6ded8a;
-  cursor: pointer;
-  transition: background-color ease 800ms;
-  margin-top: 20px;
-}
-.nameArea__button:hover {
-  background-color: rgba(109, 237, 138, 0.6);
+.scoreBoard__item {
+  list-style: none;
   color: white;
+  letter-spacing: 2px;
 }
-
-.controls {
-  width: 400px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  padding: 1rem 0;
-}
-.controls__button {
-  font-family: "Press Start 2P", cursive;
-  padding: 0.8rem 2rem;
-  background-color: transparent;
-  border: solid 1px #6ded8a;
+.scoreBoard__item:nth-child(2n+1) {
   color: #6ded8a;
 }
 
@@ -194,28 +97,62 @@ body {
   color: #6ded8a;
 }
 
-@media screen and (min-width: 800px) {
-  .main {
-    height: 75vh;
-  }
-  .main__game {
-    width: 600px;
-  }
-  .scoreBoard {
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: "Press Start 2P", cursive;
-    color: #6ded8a;
-  }
-  .controls {
-    width: 600px;
-  }
+.nameArea {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #232323;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.nameArea__heading {
+  font-family: "Press Start 2P", cursive;
+  font-size: 4rem;
+  color: #6ded8a;
+  letter-spacing: 12px;
+  margin-bottom: 200px;
+}
+.nameArea__input {
+  padding: 0.4rem 1rem;
+  border: none;
+  border-bottom: solid 2px #6ded8a;
+  background-color: transparent;
+  font-family: "Press Start 2P", cursive;
+  color: #6ded8a;
+  letter-spacing: 4px;
+}
+.nameArea__input:focus {
+  outline: none;
+}
+.nameArea__error {
+  font-family: "Press Start 2P", cursive;
+  color: #ed3833;
+  text-align: center;
+  font-size: 0.6rem;
+  margin-top: 22px;
+  margin-bottom: 2px;
+}
+.nameArea__error--hide {
+  display: none;
+}
+.nameArea__button {
+  font-family: "Press Start 2P", cursive;
+  background-color: transparent;
+  letter-spacing: 12px;
+  border: none;
+  padding: 1rem;
+  border-radius: 25px;
+  color: #6ded8a;
+  border: solid 1px #6ded8a;
+  cursor: pointer;
+  transition: background-color ease 800ms;
+  margin-top: 20px;
+}
+.nameArea__button:hover {
+  background-color: rgba(109, 237, 138, 0.6);
+  color: white;
 }/*# sourceMappingURL=main.css.map */

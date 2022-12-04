@@ -1,0 +1,5 @@
+@use '../variables' as *;
+
+.canvas {
+	border: solid 2px $color-red;
+}

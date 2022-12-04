@@ -1,12 +1,26 @@
 @use '../variables' as *;
 
 .scoreBoard {
-	display: none;
+	// display: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
 
-	.scoreItem {
-		margin-top: 1rem;
+	font-family: $font-primary;
+
+	&__header {
+		font-size: 2rem;
+		color: $color-green;
+	}
+
+	&__item {
 		list-style: none;
-		padding: 10px 0;
 		color: white;
+		letter-spacing: 2px;
+
+		&:nth-child(2n + 1) {
+			color: $color-green;
+		}
 	}
 }
