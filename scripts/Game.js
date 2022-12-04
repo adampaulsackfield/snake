@@ -8,6 +8,7 @@ export class Game {
 		this.highScores = [];
 	}
 
+	// Used to generate gridSize constrained random numbers to enable spawning of food
 	generateRandom() {
 		return `${Math.floor(Math.random() * this.gridSize)}`;
 	}
@@ -16,10 +17,12 @@ export class Game {
 		return this.score;
 	}
 
+	// Method to increment the score. Important to note that we want to increment the score before returning it
 	updateScore() {
 		return ++this.score;
 	}
 
+	// Simple GET request to get current high scores
 	getScores() {
 		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores')
 			.then((res) => {
@@ -31,6 +34,7 @@ export class Game {
 			});
 	}
 
+	// Sort, slice and build the scoreboard.
 	buildScoreboard() {
 		this.highScores
 			.sort((a, b) => b.score - a.score)
@@ -43,6 +47,7 @@ export class Game {
 			});
 	}
 
+	// Simple POST request to post new high scores
 	postScore() {
 		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores', {
 			method: 'post',
