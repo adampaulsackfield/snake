@@ -2,15 +2,14 @@ import { Game } from './Game.js';
 
 const score = document.getElementById('score');
 const nomSound = new Audio('./nom.wav');
-const loseEl = document.getElementById('lose');
-const finalScore = document.getElementById('finalScore');
 
 export class Snake extends Game {
-	constructor(width, height) {
-		super(width, height);
+	constructor(width, height, name) {
+		super(width, height, name);
 
 		this.width = width;
 		this.height = height;
+		this.name = name;
 		this.grid = 15;
 		this.snakeHead = [150, 150];
 		this.snake = [];
@@ -94,8 +93,7 @@ export class Snake extends Game {
 	// End game, show lose screen and post scores
 	gameOver() {
 		this.dead = true;
-		loseEl.classList.remove('hide');
-		finalScore.innerHTML = this.getScore();
+
 		this.postScore();
 	}
 
