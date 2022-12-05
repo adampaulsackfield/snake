@@ -12,7 +12,7 @@ export class Game {
 		this.height = height;
 		this.grid = 15;
 		this.name = name;
-		this.score = 11;
+		this.score = 0;
 		this.highScores = [];
 	}
 
