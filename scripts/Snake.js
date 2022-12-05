@@ -16,18 +16,21 @@ export class Snake extends Game {
 		this.snake = [];
 		this.speed = 3;
 		this.food = null;
-		this.size = 3;
 		this.coolDown = false;
+		this.dead = false;
 	}
 
+	// Create the Snake head in the start position, using the updateCanvas method
 	createSnake() {
 		this.updateCanvas('red', this.snakeHead[0], this.snakeHead[1]);
 	}
 
+	// Spawn random food, respawn if under snake body
 	addFood() {
 		const randomX = this.generateRandom();
 		const randomY = this.generateRandom();
 		const food = [Number(randomX), Number(randomY)];
+
 		for (let i = 0; i < this.snake.length; i++) {
 			if (this.snake[i].join(',') === food.join(',')) {
 				return this.addFood();
@@ -38,6 +41,7 @@ export class Snake extends Game {
 		this.updateCanvas('green', this.food[0], this.food[1], 'food');
 	}
 
+	// Check if the head has the same coords as the food, if so it is eating
 	isFood() {
 		if (this.food.join(',') === this.snakeHead.join(',')) {
 			nomSound.play();
@@ -52,6 +56,7 @@ export class Snake extends Game {
 		return false;
 	}
 
+	// Sets the user direction. Has a 150ms cool down, to avoid a bug with quick direction changes
 	setDirection(direction) {
 		if (this.coolDown) return;
 
@@ -76,6 +81,7 @@ export class Snake extends Game {
 		}, 150);
 	}
 
+	// Detects the snakes head colliding with it's body
 	isSnake(coords) {
 		for (let i = 0; i < this.snake.length; i++) {
 			if (coords.join(',') === this.snake[i].join(',')) {
@@ -85,6 +91,7 @@ export class Snake extends Game {
 		}
 	}
 
+	// End game, show lose screen and post scores
 	gameOver() {
 		this.dead = true;
 		loseEl.classList.remove('hide');
@@ -92,6 +99,7 @@ export class Snake extends Game {
 		this.postScore();
 	}
 
+	// Determines the next movement for the snake
 	move() {
 		if (this.dead) return;
 
@@ -125,7 +133,7 @@ export class Snake extends Game {
 
 		this.updateCanvas('red', this.snakeHead[0], this.snakeHead[1]);
 
-		if (this.snake.length > this.size && !this.isFood()) {
+		if (this.snake.length > 3 && !this.isFood()) {
 			let tail = this.snake.shift();
 			this.updateCanvas('black', tail[0], tail[1]);
 		}
