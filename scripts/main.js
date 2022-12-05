@@ -1,28 +1,36 @@
 import { Game } from './Game.js';
 import { Snake } from './Snake.js';
 
+// HTML Elements
 const nameInput = document.getElementById('name');
 const nameBtn = document.getElementById('nameBtn');
 const loseEl = document.getElementById('lose');
 const startOverBtn = document.getElementById('startOverBtn');
 
+// Load any returning User
 let user = localStorage.getItem('name');
 
+// The function that starts the game
 const startGame = () => {
+	// Set user name and store for next visit
 	user = nameInput.value;
 	localStorage.setItem('name', user);
 
+	// Initiate Classes
 	const game = new Game(600, 600, 'adam');
 	const snake = new Snake(600, 600);
 
+	// Hide the name form
 	nameArea.classList.add('hide');
 
+	// Create canvas, snake, food, and get scores.
 	game.createCanvas();
 	game.setName();
 	snake.createSnake();
 	game.getScores();
 	snake.addFood();
 
+	// Key press event listeners
 	window.onkeydown = (e) => {
 		let left = 37;
 		let up = 38;
@@ -47,10 +55,12 @@ const startGame = () => {
 	};
 };
 
+// User name input event handler
 const handleInput = () => {
 	user = nameInput.value;
 };
 
+// If no user then add the input name.
 if (!user) {
 	user = nameInput.value;
 	nameInput.value = '';
@@ -58,6 +68,7 @@ if (!user) {
 	startGame();
 }
 
+// Event listeners
 nameBtn.addEventListener('click', startGame);
 nameInput.addEventListener('click', handleInput);
 startOverBtn.addEventListener('click', () => {

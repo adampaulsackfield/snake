@@ -7,40 +7,42 @@ export class Game {
 		this.world = this.canvas.getContext('2d');
 		this.width = width;
 		this.height = height;
+		this.grid = 15;
 		this.name = name;
 		this.score = 0;
 		this.highScores = [];
-		this.pendingDirection = null;
-		this.direction = null;
-		this.moving = false;
-		this.dead = false;
-		this.coolDown = false;
 	}
 
+	// Sets the username to the HTML element
 	setName() {
 		userName.innerHTML = this.name;
 	}
 
+	// Create the canvas element
 	createCanvas() {
 		this.world.clearRect(0, 0, this.width, this.height);
 		this.world.fillRect(0, 0, this.width, this.height);
 		return;
 	}
 
+	// Method for painting the canvas
 	updateCanvas(color, x, y, eating = false) {
 		this.world.fillStyle = color;
 		this.world.fillRect(x, y, this.grid, this.grid);
 		return;
 	}
 
+	// Generates a random coord, that is divisible by 15(grid size).
 	generateRandom() {
 		return Math.floor(Math.random() * (this.width / this.grid)) * this.grid;
 	}
 
+	// Get Score
 	getScore() {
 		return this.score;
 	}
 
+	// Returns the score, after incrementing it
 	updateScore() {
 		return ++this.score;
 	}
@@ -72,8 +74,9 @@ export class Game {
 			});
 	}
 
+	// Simple POST request, if score is in the top 10
 	postScore() {
-		if (this.score <= this.highScores[(this.highScores.length = 1)]) return;
+		if (this.score <= this.highScores[this.highScores.length - 1]) return;
 
 		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores', {
 			method: 'post',
