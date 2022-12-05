@@ -36,17 +36,25 @@
 		}
 	}
 
-	&__error {
+	&__color {
+		display: flex;
+		align-items: center;
+		color: $color-green;
 		font-family: $font-primary;
-		color: $color-red;
-		text-align: center;
-		font-size: 0.6rem;
-		margin-top: 22px;
-		margin-bottom: 2px;
 
-		&--hide {
-			display: none;
+		&--select {
+			border: none;
+			outline: none;
+			background-color: transparent;
+			color: $color-green;
+			padding: 1rem;
+			font-family: $font-primary;
 		}
+	}
+
+	&__option {
+		background: green;
+		padding: 1rem;
 	}
 
 	&__button {

@@ -1,7 +1,7 @@
 @use '../variables' as *;
 
 .display {
-	width: 600px;
+	width: 100vw;
 	margin: 20px 0;
 	display: flex;
 	justify-content: space-between;
@@ -9,4 +9,11 @@
 	font-family: $font-primary;
 	font-size: 0.8rem;
 	color: $color-green;
+	padding: 0 1rem;
+}
+
+@media screen and(min-width: 799px) {
+	.display {
+		width: 600px;
+	}
 }

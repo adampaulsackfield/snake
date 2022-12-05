@@ -10,6 +10,15 @@ const startOverBtn = document.getElementById('startOverBtn');
 // Load any returning User
 let user = localStorage.getItem('name');
 
+// Set default size
+let size = 400;
+
+if (window.innerWidth > 799) {
+	size = 600;
+	canvas.width = 600;
+	canvas.height = 600;
+}
+
 // The function that starts the game
 const startGame = () => {
 	// Set user name and store for next visit
@@ -17,8 +26,8 @@ const startGame = () => {
 	localStorage.setItem('name', user);
 
 	// Initiate Classes
-	const game = new Game(600, 600, user);
-	const snake = new Snake(600, 600, user);
+	const game = new Game(size, size, user);
+	const snake = new Snake(size, size, user);
 
 	// Hide the name form
 	nameArea.classList.add('hide');

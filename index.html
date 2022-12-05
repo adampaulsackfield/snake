@@ -22,23 +22,31 @@
 		</section>
 
 		<main class="main">
-			<canvas id="canvas" class="canvas" width="600" height="600"></canvas>
+			<canvas id="canvas" class="canvas" width="400" height="400"></canvas>
 
 			<section id="scoreBoard" class="scoreBoard"></section>
 		</main>
 
 		<section id="nameArea" class="nameArea">
 			<h1 class="nameArea__heading">Snake</h1>
-			<div class="flexCol">
-				<input
-					id="name"
-					class="nameArea__input"
-					type="text"
-					placeholder="Enter Your Name..."
-				/>
+			<input
+				id="name"
+				class="nameArea__input"
+				type="text"
+				placeholder="Enter Your Name..."
+			/>
 
-				<button id="nameBtn" class="nameArea__button">Ready</button>
+			<div class="nameArea__color">
+				<p class="nameArea__color--label">Snake Color:</p>
+				<select class="nameArea__color--select" name="color" id="themeSelect">
+					<option class="nameArea__color--option" value="green">Green</option>
+					<option class="nameArea__color--option" value="red">Red</option>
+					<option class="nameArea__color--option" value="yellow">Yellow</option>
+					<option class="nameArea__color--option" value="blue">Blue</option>
+				</select>
 			</div>
+
+			<button id="nameBtn" class="nameArea__button">Ready</button>
 		</section>
 
 		<section id="lose" class="loseScreen hide">
@@ -47,6 +55,7 @@
 			<button class="loseScreen__button" id="startOverBtn">Start Over</button>
 		</section>
 
+		<script src="./scripts/theme-toggle.js" type="module"></script>
 		<script src="./scripts/main.js" type="module"></script>
 	</body>
 </html>
