@@ -74,10 +74,11 @@ export class Game {
 		this.highScores
 			.sort((a, b) => b.score - a.score)
 			.slice(0, 10)
-			.forEach((entry) => {
+			.forEach((entry, i) => {
 				const li = document.createElement('li');
 				li.classList.add('scoreBoard__item');
 				li.innerHTML = `${entry.name}: ${entry.score}`;
+				if (i > 4) li.classList.add('scoreBoard__item--hide');
 				scoreBoard.appendChild(li);
 			});
 	}
