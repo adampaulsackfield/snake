@@ -47,7 +47,7 @@ export class Snake extends Game {
 			nomSound.play();
 			this.addFood();
 			score.innerHTML = this.updateScore();
-			if (this.score % 2 === 0 && this.score !== 0) {
+			if (this.score % 5 === 0 && this.score !== 0) {
 				this.speed = this.speed + 0.2;
 			}
 			return true;
