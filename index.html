@@ -24,9 +24,7 @@
 		<main class="main">
 			<canvas id="canvas" class="canvas" width="600" height="600"></canvas>
 
-			<section id="scoreBoard" class="scoreBoard">
-				<h1 class="scoreBoard__header">High Scores</h1>
-			</section>
+			<section id="scoreBoard" class="scoreBoard"></section>
 		</main>
 
 		<section id="nameArea" class="nameArea">
@@ -44,7 +42,7 @@
 		</section>
 
 		<section id="lose" class="loseScreen hide">
-			<h2 class="loseScreen__heading">You Lose</h2>
+			<h2 id="loseMsg" class="loseScreen__heading"></h2>
 			<h3 class="loseScreen__score">Score: <span id="finalScore">0</span></h3>
 			<button class="loseScreen__button" id="startOverBtn">Start Over</button>
 		</section>

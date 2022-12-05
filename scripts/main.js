@@ -17,8 +17,8 @@ const startGame = () => {
 	localStorage.setItem('name', user);
 
 	// Initiate Classes
-	const game = new Game(600, 600, 'adam');
-	const snake = new Snake(600, 600);
+	const game = new Game(600, 600, user);
+	const snake = new Snake(600, 600, user);
 
 	// Hide the name form
 	nameArea.classList.add('hide');

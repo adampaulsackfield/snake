@@ -1,5 +1,8 @@
 const scoreBoard = document.getElementById('scoreBoard');
 const userName = document.getElementById('userName');
+const loseEl = document.getElementById('lose');
+const finalScore = document.getElementById('finalScore');
+const loseMsg = document.getElementById('loseMsg');
 
 export class Game {
 	constructor(width, height, name) {
@@ -9,7 +12,7 @@ export class Game {
 		this.height = height;
 		this.grid = 15;
 		this.name = name;
-		this.score = 0;
+		this.score = 11;
 		this.highScores = [];
 	}
 
@@ -63,6 +66,11 @@ export class Game {
 	buildScoreboard() {
 		scoreBoard.innerHTML = '';
 
+		const scoreHeader = document.createElement('h1');
+		scoreHeader.innerHTML = 'High Scores';
+		scoreHeader.classList.add('scoreBoard__header');
+		scoreBoard.appendChild(scoreHeader);
+
 		this.highScores
 			.sort((a, b) => b.score - a.score)
 			.slice(0, 10)
@@ -76,7 +84,13 @@ export class Game {
 
 	// Simple POST request, if score is in the top 10
 	postScore() {
-		if (this.score <= this.highScores[this.highScores.length - 1]) return;
+		loseEl.classList.remove('hide');
+		finalScore.innerHTML = this.getScore();
+		loseMsg.innerHTML = "You made into the top 10! That's awesome!";
+
+		if (this.score <= this.highScores[this.highScores.length - 1]) {
+			loseMsg.innerHTML = "You didn't make the cut this time.";
+		}
 
 		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores', {
 			method: 'post',
@@ -92,7 +106,11 @@ export class Game {
 				},
 			}),
 		}).then((response) => {
-			console.log(response);
+			if (response.status === 201) {
+				if (this.score > this.highScores[0]) {
+					loseMsg.innerHTML = 'You reached the top of the leader board.';
+				}
+			}
 		});
 	}
 }
