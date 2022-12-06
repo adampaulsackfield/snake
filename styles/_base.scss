@@ -1,13 +1,20 @@
 body {
-	background-color: #494949;
-	overflow: hidden;
+	background-image: url('../assets/images/sunrise-minecraft.jpg');
+	background-size: auto; /* <------ */
+	background-repeat: no-repeat;
 }
 
 .container {
-	max-width: 1000px;
+	max-width: 1100px;
 	margin: 0 auto;
 }
 
 .hide {
 	display: none !important;
+}
+
+@media screen and (max-width: 1000px) {
+	.container {
+		max-width: 1000px;
+	}
 }
