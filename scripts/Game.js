@@ -59,6 +59,7 @@ export class Game {
 			.then((data) => {
 				this.highScores = data.scores;
 				this.buildScoreboard();
+				localStorage.setItem('scores', JSON.stringify(data.scores));
 			});
 	}
 
@@ -87,10 +88,23 @@ export class Game {
 	postScore() {
 		loseEl.classList.remove('hide');
 		finalScore.innerHTML = this.getScore();
-		loseMsg.innerHTML = "You made into the top 10! That's awesome!";
+		const data = localStorage.getItem('scores');
+		const highScores = JSON.parse(data);
+		const sortedScores = highScores
+			.sort((a, b) => b.score - a.score)
+			.slice(0, 10);
 
-		if (this.score <= this.highScores[this.highScores.length - 1]) {
+		if (this.score < sortedScores[sortedScores.length - 1].score) {
 			loseMsg.innerHTML = "You didn't make the cut this time.";
+			return;
+		}
+
+		if (this.score > sortedScores[sortedScores.length - 1].score) {
+			loseMsg.innerHTML = "You made into the top 10! That's awesome!";
+		}
+
+		if (this.score > sortedScores[0].score) {
+			loseMsg.innerHTML = 'You reached the top of the leader board.';
 		}
 
 		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores', {
@@ -108,9 +122,7 @@ export class Game {
 			}),
 		}).then((response) => {
 			if (response.status === 201) {
-				if (this.score > this.highScores[0]) {
-					loseMsg.innerHTML = 'You reached the top of the leader board.';
-				}
+				console.log('Score posted successfully');
 			}
 		});
 	}
