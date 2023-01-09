@@ -52,7 +52,7 @@ export class Game {
 
 	// Simple GET request to get current high scores
 	getScores() {
-		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores')
+		return fetch('https://144.126.228.164/api/scores')
 			.then((res) => {
 				return res.json();
 			})
@@ -107,7 +107,7 @@ export class Game {
 			loseMsg.innerHTML = 'You reached the top of the leader board.';
 		}
 
-		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores', {
+		return fetch('https://144.126.228.164/api/scores', {
 			method: 'post',
 			headers: {
 				Accept: 'application/json',
