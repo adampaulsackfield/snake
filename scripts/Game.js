@@ -88,8 +88,6 @@ export class Game {
 
 	// Simple POST request, if score is in the top 10
 	postScore() {
-		if (highScores.length === 0) return;
-
 		loseEl.classList.remove('hide');
 		finalScore.innerHTML = this.getScore();
 		const data = localStorage.getItem('scores');
@@ -98,16 +96,22 @@ export class Game {
 			.sort((a, b) => b.score - a.score)
 			.slice(0, 10);
 
-		if (this.score < sortedScores[sortedScores.length - 1].score) {
+		if (
+			this.score < sortedScores[sortedScores.length - 1].score &&
+			sortedScores.length > 0
+		) {
 			loseMsg.innerHTML = "You didn't make the cut this time.";
 			return;
 		}
 
-		if (this.score > sortedScores[sortedScores.length - 1].score) {
+		if (
+			this.score > sortedScores[sortedScores.length - 1].score &&
+			sortedScores.length > 0
+		) {
 			loseMsg.innerHTML = "You made into the top 10! That's awesome!";
 		}
 
-		if (this.score > sortedScores[0].score) {
+		if (this.score > sortedScores[0].score && sortedScores.length > 0) {
 			loseMsg.innerHTML = 'You reached the top of the leader board.';
 		}
 
