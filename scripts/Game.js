@@ -72,20 +72,24 @@ export class Game {
 		scoreHeader.classList.add('scoreBoard__header');
 		scoreBoard.appendChild(scoreHeader);
 
-		this.highScores
-			.sort((a, b) => b.score - a.score)
-			.slice(0, 10)
-			.forEach((entry, i) => {
-				const li = document.createElement('li');
-				li.classList.add('scoreBoard__item');
-				li.innerHTML = `${entry.name}: ${entry.score}`;
-				if (i > 4) li.classList.add('scoreBoard__item--hide');
-				scoreBoard.appendChild(li);
-			});
+		if (this.highScores.length > 0) {
+			this.highScores
+				.sort((a, b) => b.score - a.score)
+				.slice(0, 10)
+				.forEach((entry, i) => {
+					const li = document.createElement('li');
+					li.classList.add('scoreBoard__item');
+					li.innerHTML = `${entry.name}: ${entry.score}`;
+					if (i > 4) li.classList.add('scoreBoard__item--hide');
+					scoreBoard.appendChild(li);
+				});
+		}
 	}
 
 	// Simple POST request, if score is in the top 10
 	postScore() {
+		if (highScores.length === 0) return;
+
 		loseEl.classList.remove('hide');
 		finalScore.innerHTML = this.getScore();
 		const data = localStorage.getItem('scores');
