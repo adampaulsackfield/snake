@@ -52,7 +52,7 @@ export class Game {
 
 	// Simple GET request to get current high scores
 	getScores() {
-		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores')
+		return fetch('http://143.198.243.112:5550/api/scores')
 			.then((res) => {
 				return res.json();
 			})
@@ -72,16 +72,18 @@ export class Game {
 		scoreHeader.classList.add('scoreBoard__header');
 		scoreBoard.appendChild(scoreHeader);
 
-		this.highScores
-			.sort((a, b) => b.score - a.score)
-			.slice(0, 10)
-			.forEach((entry, i) => {
-				const li = document.createElement('li');
-				li.classList.add('scoreBoard__item');
-				li.innerHTML = `${entry.name}: ${entry.score}`;
-				if (i > 4) li.classList.add('scoreBoard__item--hide');
-				scoreBoard.appendChild(li);
-			});
+		if (this.highScores.length > 0) {
+			this.highScores
+				.sort((a, b) => b.score - a.score)
+				.slice(0, 10)
+				.forEach((entry, i) => {
+					const li = document.createElement('li');
+					li.classList.add('scoreBoard__item');
+					li.innerHTML = `${entry.name}: ${entry.score}`;
+					if (i > 4) li.classList.add('scoreBoard__item--hide');
+					scoreBoard.appendChild(li);
+				});
+		}
 	}
 
 	// Simple POST request, if score is in the top 10
@@ -94,20 +96,26 @@ export class Game {
 			.sort((a, b) => b.score - a.score)
 			.slice(0, 10);
 
-		if (this.score < sortedScores[sortedScores.length - 1].score) {
+		if (
+			this.score < sortedScores[sortedScores.length - 1].score &&
+			sortedScores.length > 0
+		) {
 			loseMsg.innerHTML = "You didn't make the cut this time.";
 			return;
 		}
 
-		if (this.score > sortedScores[sortedScores.length - 1].score) {
+		if (
+			this.score > sortedScores[sortedScores.length - 1].score &&
+			sortedScores.length > 0
+		) {
 			loseMsg.innerHTML = "You made into the top 10! That's awesome!";
 		}
 
-		if (this.score > sortedScores[0].score) {
+		if (this.score > sortedScores[0].score && sortedScores.length > 0) {
 			loseMsg.innerHTML = 'You reached the top of the leader board.';
 		}
 
-		return fetch('https://snake-scoreboard-api.herokuapp.com/api/scores', {
+		return fetch('http://143.198.243.112:5550/api/scores', {
 			method: 'post',
 			headers: {
 				Accept: 'application/json',
