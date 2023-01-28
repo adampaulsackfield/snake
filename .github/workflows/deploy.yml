@@ -1,0 +1,22 @@
+name: Deploy Over SSH
+on: 
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login over SSH and Execute Build commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.key }}
+        passphrase: ${{ secrets.passphrase }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd /home/chopin/apps/snake
+          git pull origin main
+          cp -r ./* /var/www/snake.adamsackfield.uk/html/
