@@ -19,4 +19,4 @@ jobs:
         script: |
           cd /home/chopin/apps/snake
           git pull origin main
-          sudo cp -r ./* /var/www/snake.adamsackfield.uk/html/
+         cp -r ./* /var/www/snake.adamsackfield.uk/html/
