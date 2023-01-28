@@ -4,6 +4,8 @@ const loseEl = document.getElementById('lose');
 const finalScore = document.getElementById('finalScore');
 const loseMsg = document.getElementById('loseMsg');
 
+const URL = 'https://snakeapi.adamsackfield.uk/api/scores';
+
 export class Game {
 	constructor(width, height, name) {
 		this.canvas = document.getElementById('canvas');
@@ -52,7 +54,7 @@ export class Game {
 
 	// Simple GET request to get current high scores
 	getScores() {
-		return fetch('http://143.198.243.112:5550/api/scores')
+		return fetch(`${URL}`)
 			.then((res) => {
 				return res.json();
 			})
@@ -115,7 +117,7 @@ export class Game {
 			loseMsg.innerHTML = 'You reached the top of the leader board.';
 		}
 
-		return fetch('http://143.198.243.112:5550/api/scores', {
+		return fetch(`${URL}`, {
 			method: 'post',
 			headers: {
 				Accept: 'application/json',
