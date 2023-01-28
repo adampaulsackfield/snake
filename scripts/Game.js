@@ -4,7 +4,7 @@ const loseEl = document.getElementById('lose');
 const finalScore = document.getElementById('finalScore');
 const loseMsg = document.getElementById('loseMsg');
 
-const URL = 'https://snakeapi.adamsackfield.uk:5500/api/scores';
+const URL = 'http://snakeapi.adamsackfield.uk:5500/api/scores';
 
 export class Game {
 	constructor(width, height, name) {
