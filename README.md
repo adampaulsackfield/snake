@@ -1,7 +1,10 @@
 # Snake
 
 A Vanilla HTML, CSS and JavaScript implementation of the classic game Snake.
-Features
+
+## About
+
+This project is self-hosted on a ubuntu server, it is configured with nginx, https (certbot and letsencrypt), and cors enabled for the backend API. Additionally, the project is configured with a GitHub Action to deploy the build to the server and copy the files for nginx.
 
 ## Requirements
 
